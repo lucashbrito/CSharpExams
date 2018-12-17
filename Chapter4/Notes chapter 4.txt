@@ -1,0 +1,40 @@
+﻿- directories
+
+* When working with a huge directory tree, it can be more efficient to use EnumerateDirectories
+instead of GetDirectories. When using EnumerateDirectories, you can start enumerating
+the collection before it’s been completely retrieved. When using GetDirectories, you get a list
+of folder names and you have to wait until the whole list of names is ready.
+* The Path class can also help you when you need to temporarily store some data. You can
+use GetRandomFileName to create a random file or directory name. GetTempPath returns the
+location of the current user’s temporary folder, and GetTempFileName creates a temporary
+file that you can then use to store some data in.
+*Never try to manually add strings together to form a path. Always use the Path class when combining multiple strings together to form a legal path.
+
+- enconding and decoding
+* The .NET Framework offers several encoding standards that you can use. UTF-8 is one that
+suffices for general purpose use. It can represent all Unicode characters and it is used as the
+default encoding in a lot of the .NET Framework classes. Other encodings are ASCII, BigEndianUnicode,
+Unicode, UTF32, and UTF7.
+
+* If you know that you are parsing a text file, you can also use a StreamReader (as the opposite
+of the StreamWriter) to read a text file. The StreamReader uses a default encoding and
+returns the bytes to you as a string
+
+* Another example where this can be used is with a BufferedStream. Hard drives are optimized for reading larger blocks of data. Reading a file byte by byte can be slower than reading big chunks of data and processing them byte by byte. Just as with the GZipStream, the BufferedStream takes another Stream in its constructor. The BufferedStream helps you with checking to determine whether it’s possible to read or write larger chunks of data at once.
+
+- connection string
+ * The basic format of a connection string is a series of key/value pairs connected by an equal sign (=), all separated by semicolons (;).
+ * When you need to build a connection string dynamically, you can use one of the several DbConnectionStringBuilder classes
+
+ - ado.net 
+ * ADO.NET also supports the new async/await keywords so you can execute queries asynchronously.
+
+ - trasactions
+ * A transaction has four key
+properties that are referred to as ACID:
+■■ Atomicity All operations are grouped together. If one fails, they all fail.
+■■ Consistency Transactions bring the database from one valid state to another.
+■■ Isolation Transactions can operate independently of each other. Multiple concurrent
+transactions won’t influence each other. It will be as if they were executed serially.
+■■ Durability The result of a committed transaction is always stored permanently, even
+if the database crashes immediately thereafter.

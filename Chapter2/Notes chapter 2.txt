@@ -1,0 +1,80 @@
+﻿- Struct
+* Structs and classes can have methods, fields, properties, constructors, and other functionalities.
+You cannot, however, declare your own empty constructor for a struct. Also, structs
+cannot be used in an inheritance hierarchy. 
+
+* Sometimes the term “function” is used, and sometimes the term “method” is used. A function’s
+meaning implies that it returns a value and doesn’t modify anything in the system.
+You can say a function is the ”read” part of the system. This is what is still used in functional
+languages such as F#, in which immutable data structures are popular.
+A method does enable data modification and doesn’t return any data. This is the ”write”
+part of the system.
+You can see this distinction in the Func<T> and Action types that were added to the .NET
+Framework. Func<T> always has a return type, whereas Action returns nothing.
+In C#, this distinction is not used. The preferred term is “method.
+
+* If the fields value is set at compile time, you can also mark it as const. That way, the compiler
+knows for sure that the value will never change and it can perform some optimization.
+* When you want to store data that’s not specific for an instance, you can make it static.
+
+- Generics
+* where T: struct The type argument must be a value type (only Nullable is not allowed).
+
+* where T : class The type argument must be a reference type: for example, a class, interface,
+delegate, or array.
+
+* where T : new() The type must have a public default constructor.
+
+* where T : <base class name> The type argument must be or derive from the specified base class.
+
+* where T : <interface name> The type argument must be or implement the specified interface.
+Multiple interface constraints can be specified. The constraining interface
+can also be generic.
+
+* where T : U The type argument supplied for T must be or derive from the argument
+supplied for U.
+
+- Extension methods
+
+* In .NET 4.0, a new capability was added called extension methods, which enable you to add
+new capabilities to an existing type. You don’t need to make any modifications to the existing
+type; just bring the extension method into scope and you can call it like a regular instance
+method.
+Extension methods need to be declared in a nongeneric, non-nested, static class
+
+- Overriding Methods
+* You can disable inheritance
+by using the sealed keyword on a class or a method. When used on a class, you can’t derive
+other classes from it. When used on a method, derived classes can’t override the method.
+
+- Boxing and Unboxing
+* So boxing is the process of taking a value type, putting it inside a new object on the heap,
+and storing a reference to it on the stack. Unboxing is the exact opposite: It takes the item
+from the heap and returns a value type that contains the value from the heap.
+* If you execute an invalid unbox operation, the runtime will throw an InvalidCastException. You won’t see the error at compile time because the compiler trusts you in making the right call. At runtime, however, the conversion fails, and an exception is thrown.
+* Using the as operator is more efficient when you want to use the value afterward. If you
+only want to check whether your type is of a certain type, you can use the is operator. The is
+and as operators can also be used on Nullable types.
+* DynamicObject and ExpandoObject. DynamicObject is the most flexible. When inheriting
+from DynamicObject, you can override members that enable you to override operations
+such as getting or setting a member, calling a method, or performing conversions. By using
+DynamicObject, you can create truly dynamic objects and have full control over how they
+operate at runtime.
+
+- Access modifiers 
+*public None; restricted access
+*internal Limited to the current assembly
+*protected Limited to the containing class and derived classes
+*protected internal Limited to the current assembly or derived types
+*private Limited to the containing type
+
+- Yield
+* Yield is a special keyword that can be used only in the context of iterators. It instructs the compiler to convert this regular code to a state machine. The generated code keeps track of where you are in the collection and it implements methods such as MoveNext and Current.
+
+
+- Finalizer and Gabarge collector
+* It’s important to know the difference between implementing IDisposable and a finalizer. Both clean up your object, but a finalizer is called by the garbage collector, and the Dispose method can be called from code.
+
+- StringBuildes
+* The StringBuilder class can be used when you are working with strings in a tight loop. Instead of creating a new string over and over again, you can use the StringBuilder, which uses a string buffer internally to improve performance
+

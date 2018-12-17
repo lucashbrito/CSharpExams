@@ -1,0 +1,11 @@
+﻿
+- MultithreadClass
+* The Thread class can be found in the System.Threading namespace.
+* The Thread.Join method is called on the main thread to let it wait until the other thread finishes.
+* Why the Thread.Sleep(0)? It is used to signal to Windows that this thread is finished. Instead of waiting for the whole time-slice of the thread to finish, it will immediately switch to another thread.
+* Another thing that’s important to know about threads is the difference between foreground and background threads. Foreground threads can be used to keep an application alive. Only when all foreground threads end does the common language runtime (CLR) shut down your application. Background threads are then terminated.
+* To stop a thread, you can use the Thread.Abort method
+
+- Taks
+* Calling Wait is equivalent to calling Join on a thread. It waits till the Task is finished before exiting the application.
+* The ContinueWith method has a couple of overloads that you can use to configure when the continuation will run. This way you can add different continuation methods that will run when an exception happens, the Task is canceled, or the Task completes successfully
