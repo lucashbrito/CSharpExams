@@ -41,15 +41,15 @@ namespace Chapter4
 
                 SqlDataReader dataReader = await command.ExecuteReaderAsync();
 
-                await ReadQueryResults(dataReader);
+                await ReadQueryReTask(dataReader);
                 await dataReader.NextResultAsync();
-                await ReadQueryResults(dataReader);
+                await ReadQueryReTask(dataReader);
 
                 dataReader.Close();
             }
         }
 
-        private static async Task readQueryReTask(SqlDataReader dataReader)
+        private static async Task ReadQueryReTask(SqlDataReader dataReader)
         {
             while (await dataReader.ReadAsync())
             {

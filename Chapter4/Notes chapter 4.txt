@@ -38,3 +38,19 @@ properties that are referred to as ACID:
 transactions won’t influence each other. It will be as if they were executed serially.
 ■■ Durability The result of a committed transaction is always stored permanently, even
 if the database crashes immediately thereafter.
+
+*A TransactionScope can be constructed with three options:
+■■ Required Join the ambient transaction or create a new one if it doesn’t exist. If there
+is an ambient transaction, that transaction controls when the transaction is completed.
+This is the default scope.
+■■ RequiresNew Start a new transaction.
+■■ Suppress Don’t take part in any transaction.
+
+- Using an Object Relational Mapper (ORM)
+*The Entity Framework can be used with a few different approaches:
+■■
+Database First You want to map an existing database to your object structure.
+■■
+Model First You want to design your object model with a graphical designer and then create a database that supports it.
+■■
+Code First You create your object model in code and then generate a database that can store your data.
