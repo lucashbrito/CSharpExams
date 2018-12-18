@@ -54,3 +54,28 @@ Database First You want to map an existing database to your object structure.
 Model First You want to design your object model with a graphical designer and then create a database that supports it.
 ■■
 Code First You create your object model in code and then generate a database that can store your data.
+
+- xml
+*These classes are found in the System.Xml namespace 
+* XmlReader A fast way of reading an XML file. You can move forward only through the file, and nothing is cached.
+* XmlWriter A fast way to create an XML file. Just as with the XmlReader, it’s forward only and noncached.
+* XmlDocument Represents an in-memory XML document. It supports navigating and editing a document.
+* XPathNavigator Helps with navigating through an XML document to find specific information.
+
+- collections
+ * HashSet<T> A set is a collection that contains no duplicate elements and has no particular order.
+ * A Queue is a first in, first out (FIFO) collection.
+ * A Stack is a last-in, first-out (LIFO) collection.
+ * A Stack has the following three important methods:
+■■ Push Add a new item to the Stack.
+■■ Pop Get the newest item from the Stack.
+■■ Peek Get the newest item without removing it.
+
+*List and Dictionary types offer random access to all elements. A Dictionary offers faster
+read features, but it can’t store duplicate elements.
+A Queue and a Stack are used when you want to retrieve items in a specific order. The item
+is removed when you have retrieved it.
+Set-based collections have special features for comparing collections. They don’t offer
+random access to individual elements.
+Although List can be used in most situations, it pays to see whether there is a more specialized
+collection that can make your life easier.

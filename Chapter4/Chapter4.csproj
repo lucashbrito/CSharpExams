@@ -50,14 +50,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AsynchronouslyClass.cs" />
+    <Compile Include="Collections.cs" />
     <Compile Include="ConnectionStringClass.cs" />
     <Compile Include="DirectoriesClass.cs" />
     <Compile Include="DriveInformation.cs" />
     <Compile Include="EntityFramework.cs" />
     <Compile Include="FileStreamClass.cs" />
+    <Compile Include="JsonClass.cs" />
+    <Compile Include="LambdaExpression.cs" />
+    <Compile Include="Order.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SerializerAndDeserializer.cs" />
     <Compile Include="TransactionsClass.cs" />
     <Compile Include="WebRequestAndWebResponse.cs" />
+    <Compile Include="XmlClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
