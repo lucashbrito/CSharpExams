@@ -9,3 +9,33 @@
 - Taks
 * Calling Wait is equivalent to calling Join on a thread. It waits till the Task is finished before exiting the application.
 * The ContinueWith method has a couple of overloads that you can use to configure when the continuation will run. This way you can add different continuation methods that will run when an exception happens, the Task is canceled, or the Task completes successfully
+
+
+- Delegates 
+* When you assign a method to a delegate, the method signature does not have to match the delegate exactly. This is called covariance and contravariance. Covariance makes it possible that a method has a return type that is more derived than that defined in the delegate. Contravariance permits a method that has parameter types that are less derived than those in the delegate type.
+
+- null-coalescing
+*The ?? operator is called the null-coalescing operator. You can use it to provide a default value for nullable value types or for reference types.
+The operator returns the left value if it’s not null; otherwise, the right operand.
+
+
+- Exceptions
+
+Name				| Description
+
+StackTrace			| A string that describes all the methods that are currently in execution. This gives you a way of tracking which method threw the exception and how that method was reached.
+InnerException		| When a new exception is thrown because another exception happened, the two are linked together with the InnerException property.
+Message				| A (hopefully) human friendly message that describes the exception.
+HelpLink			| A Uniform Resource Name (URN) or uniform resource locater (URL) that points to a help file.
+HResult				| A 32-bit value that describes the severity of an error, the area in which the exception happened and a unique number for the exception This value is used only when crossing managed and native boundaries.
+Source				| The name of the application that caused the error. If the Source is not explicitly set, the name of the assembly is used.
+TargetSite			| Contains the name of the method that caused the exception. If this data is not available, the property will be null.
+Data				| A dictionary of key/value pairs that you can use to store extra data for your exception. This data can be read by other catch blocks and can be used to control the processing of the exception
+
+*When catching an exception, you can choose to rethrow the exception. You have three ways of doing this:
+■■ Use the throw keyword without an identifier.
+■■ Use the throw keyword with the original exception.
+■■ Use the throw keyword with a new exception.
+
+*Make sure that you don’t swallow any exception details when rethrowing an exception. Throw a new exception that points to the original one when you want to add extra information; otherwise, use the throw keyword without an identifier to preserve the original exception details
+
