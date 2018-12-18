@@ -13,8 +13,13 @@ namespace ConsoleApp
         static void Chapter1()
         {
             var chapter = new Chapter1Class();
-            chapter.MultiThreads();
-            chapter.Task();
+
+            chapter.UsingCustomException();
+            chapter.UsingDelegate();
+            chapter.UsingEvent();
+            chapter.UsingLambda();
+            chapter.UsingMultiThreads();
+            chapter.UsingTask();
         }
 
         static void Chapter2()
