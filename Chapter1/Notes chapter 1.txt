@@ -9,7 +9,7 @@
 - Taks
 * Calling Wait is equivalent to calling Join on a thread. It waits till the Task is finished before exiting the application.
 * The ContinueWith method has a couple of overloads that you can use to configure when the continuation will run. This way you can add different continuation methods that will run when an exception happens, the Task is canceled, or the Task completes successfully
-
+ 
 
 - Delegates 
 * When you assign a method to a delegate, the method signature does not have to match the delegate exactly. This is called covariance and contravariance. Covariance makes it possible that a method has a return type that is more derived than that defined in the delegate. Contravariance permits a method that has parameter types that are less derived than those in the delegate type.
@@ -18,6 +18,14 @@
 *The ?? operator is called the null-coalescing operator. You can use it to provide a default value for nullable value types or for reference types.
 The operator returns the left value if it’s not null; otherwise, the right operand.
 
+- Event
+* Events enable a class or object to notify other classes or objects when something of interest occurs
+* the class that sends (or raises) the event is called the publisher. 
+	- the publisher determines when an event is raised. 
+* the classes that receive (or handle) the event are called subscribers. 
+	- the subscribers determine what action is taken in response to the event. 
+* An event can have multiple subscribers. 
+* a subscriber can handle multiple event from multiple publishers. 
 
 - Exceptions
 
