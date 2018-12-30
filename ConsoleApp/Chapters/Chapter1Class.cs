@@ -56,6 +56,15 @@ namespace ConsoleApp.Chapters
 
         public void UsingEvent()
         {
+            var publisher = new Publisher();
+            var subscriber = new Subscriber();
+
+            publisher.evt += subscriber.HandleTheEvent;
+            publisher.EventHandler += subscriber.HandleTheEvent;
+            publisher.EventHandlerCustom += subscriber.HandleTheEvent;
+
+            publisher.CheckBalance(260);
+
             _eventClass.CreateAndRaise();
             _eventClass.Raise();
         }

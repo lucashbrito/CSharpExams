@@ -13,17 +13,29 @@ namespace Chapter1
 
         public StreamWriter MethodStream() { return null; }
         public StringWriter MethodString() { return null; }
-        public int Add(int x, int y) { return x + y; }
+        public int Add(int x, int y) => x + y;
         void DoSomething(TextWriter tw) { }
-        public int Multiply(int x, int y) { return x * y; }
+        public int Multiply(int x, int y) => x * y;
 
-        public void UsingDelegate()
+        public void UsingDelegate(int x, int y)
         {
-            Calculate cal = Add;
+            Calculate cal = Multiply;
+
+            switch (x)
+            {
+                case 4:
+                    cal = Add;
+                    break;
+                case 5:
+                    cal += Add;
+                    break;
+                default:
+                    cal = Multiply;
+                    break;
+            }
+
             Console.WriteLine(cal(2, 3));
 
-            cal = Multiply;
-            Console.WriteLine(cal(2, 3));
         }
 
         public void MulticastDelegate()
