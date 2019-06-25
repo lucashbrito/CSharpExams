@@ -18,6 +18,33 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chapter3", "Chapter3\Chapte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chapter4", "Chapter4\Chapter4.csproj", "{3E750C23-4D05-43BD-8807-568EE277AEB7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNet", "AspNet", "{1BC03FB9-B5E8-4E54-A44F-B8995437C633}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter1", "Chapter1", "{B784DB67-FD0F-4F7E-A0C5-E70E9110DD59}"
+	ProjectSection(SolutionItems) = preProject
+		Notes.txt = Notes.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter2", "Chapter2", "{E6691BF5-BFF4-4F00-9356-B5418A59F77E}"
+	ProjectSection(SolutionItems) = preProject
+		Notes.txt = Notes.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter3", "Chapter3", "{2FC0424E-FA8C-4FE2-A602-0822DF84512B}"
+	ProjectSection(SolutionItems) = preProject
+		Notes.txt = Notes.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter4", "Chapter4", "{D82C8B87-15AA-4C30-BA5B-F0A858DA6719}"
+	ProjectSection(SolutionItems) = preProject
+		Notes.txt = Notes.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter5", "Chapter5", "{7DA69D76-E474-49EE-AFC7-7082A12CF1E6}"
+	ProjectSection(SolutionItems) = preProject
+		Notes.txt = Notes.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +77,11 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F3E7EAFB-37F5-4B5A-B6F9-40A172C84E1D} = {5C5083F9-18EC-48D8-AE75-7581D3BDA96B}
+		{B784DB67-FD0F-4F7E-A0C5-E70E9110DD59} = {1BC03FB9-B5E8-4E54-A44F-B8995437C633}
+		{E6691BF5-BFF4-4F00-9356-B5418A59F77E} = {1BC03FB9-B5E8-4E54-A44F-B8995437C633}
+		{2FC0424E-FA8C-4FE2-A602-0822DF84512B} = {1BC03FB9-B5E8-4E54-A44F-B8995437C633}
+		{D82C8B87-15AA-4C30-BA5B-F0A858DA6719} = {1BC03FB9-B5E8-4E54-A44F-B8995437C633}
+		{7DA69D76-E474-49EE-AFC7-7082A12CF1E6} = {1BC03FB9-B5E8-4E54-A44F-B8995437C633}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C48DD6C5-B06D-42C9-B7D6-0B3780225940}

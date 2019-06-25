@@ -1,0 +1,3 @@
+
+
+The last choice in the initial Performance Wizard page is Resource contention data (concurrency). This is especially important when you are running a multithreaded application because this analysis detects and reports on problems such as thread contention. It provides information on how your threads interact with each other and with the system, CPU utilization, overlapped input/output (I/O), and many other useful metrics when trying to determine why your multithreaded application does not perform properly.
