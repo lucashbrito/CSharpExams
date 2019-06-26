@@ -1,3 +1,51 @@
+The last choice in the initial Performance Wizard page is Resource contention data (concurrency).
+This is especially important when you are running a multithreaded application because this analysis detects
+and reports on problems such as thread contention. It provides information on how your threads interact with
+each other and with the system, CPU utilization, overlapped input/output (I/O), and many other useful metrics when
+trying to determine why your multithreaded application does not perform properly.
+
+* MORE INFO CONFIGURING THE VISUAL STUDIO PROFILERMSDN
+provides how-to information on configuring the Visual Studio profiler under differ-ent conditions,
+including how to use the Microsoft symbol server and other configuration items that will help you 
+maximize your profiling results. Visit http://msdn.microsoft.com/en-us/library/ms182370.aspx for more information.
+
+NLog and log4net are two well-known open-source logging tools, and several more are
+available.
+
+use tracing, which is part of the System.Diagnostics namespace, to capture and
+write messages. If you are using a web farm, you will quickly find that the use of physical logs
+becomes unwieldy, especially if you have to look through multiple logs to find a single logging
+event.
+
+Tracing is a built-in feature of .NET that enables you to get information from a running application.
+To do so requires that you have taken several configuration steps. The first is to have
+created one or more Systems.Diagnostics.TraceListeners, which receive the tracing information
+and perform an action on them, typically writing them to a text file or into a database. 
+The easiest way to configure a TraceListener is through the Web.config file.
+
+Error logging can also be handled automatically by using the HandleErrorAttribute, 
+by overriding the controller’s OnException method, or by using a custom error filter.
+The HandleErrorAttribute is an attribute you can apply to actions, controllers,
+or globally that enables you to assign, as an attribute on the action, 
+the relationship between a certain type of exception, and a view that will 
+be used to display information about the error:
+[HandleError(ExceptionType=typeof(System.IOException), View="FileError")]
+
+Another point to consider is that using the HandleErrorAttribute does not pass information through a controller,
+which is unnecessary. The purpose of a controller is to get the model to the view, and the model is already 
+defined and present as the HandleErrorInfo. Using the HandleErrorAttribute enables you to handle errors 
+that occur in action methods and in any filters that apply to those methods, whether applied at an action level,
+the controller level, or a global level. It also handles any errors in the view
+
+EXAM TIP
+Ensure that you are comfortable with the various ways to manage exceptions in ASP.NET
+MVC, especially the OnException method and HandleErrorAttribute. There is more information
+in Chapter 3, “Develop the user experience,” on overriding the HandleErrorAttribute to
+make a more customized solution.
 
 
-The last choice in the initial Performance Wizard page is Resource contention data (concurrency). This is especially important when you are running a multithreaded application because this analysis detects and reports on problems such as thread contention. It provides information on how your threads interact with each other and with the system, CPU utilization, overlapped input/output (I/O), and many other useful metrics when trying to determine why your multithreaded application does not perform properly.
+Enforcing conditions by using code contracts
+* Preconditions Conditions that have to be fulfilled before a method can execute
+* Invariants Conditions that do not change during the execution of a method
+* Postconditions Conditions that that are verified upon completion of the method
+

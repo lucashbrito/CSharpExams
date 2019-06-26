@@ -45,6 +45,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter5", "Chapter5", "{7D
 		Notes.txt = Notes.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspnet.UI", "AspNet\Aspnet\Aspnet.UI\Aspnet.UI.csproj", "{FEC0E5E3-6968-49C0-B7CE-C03ADC5C919F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{3E750C23-4D05-43BD-8807-568EE277AEB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E750C23-4D05-43BD-8807-568EE277AEB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E750C23-4D05-43BD-8807-568EE277AEB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEC0E5E3-6968-49C0-B7CE-C03ADC5C919F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEC0E5E3-6968-49C0-B7CE-C03ADC5C919F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEC0E5E3-6968-49C0-B7CE-C03ADC5C919F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEC0E5E3-6968-49C0-B7CE-C03ADC5C919F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +88,7 @@ Global
 		{2FC0424E-FA8C-4FE2-A602-0822DF84512B} = {1BC03FB9-B5E8-4E54-A44F-B8995437C633}
 		{D82C8B87-15AA-4C30-BA5B-F0A858DA6719} = {1BC03FB9-B5E8-4E54-A44F-B8995437C633}
 		{7DA69D76-E474-49EE-AFC7-7082A12CF1E6} = {1BC03FB9-B5E8-4E54-A44F-B8995437C633}
+		{FEC0E5E3-6968-49C0-B7CE-C03ADC5C919F} = {1BC03FB9-B5E8-4E54-A44F-B8995437C633}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C48DD6C5-B06D-42C9-B7D6-0B3780225940}
