@@ -49,3 +49,5 @@ Enforcing conditions by using code contracts
 * Invariants Conditions that do not change during the execution of a method
 * Postconditions Conditions that that are verified upon completion of the method
 
+Using contracts to perform this check enables consumers 
+of the methods to get some information about the expectations of the method.
