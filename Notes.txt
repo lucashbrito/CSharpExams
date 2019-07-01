@@ -157,3 +157,173 @@ handler will be called for every exception that is thrown in your application. Y
 add logging or other diagnostic or cleanup items in this handler. However, you need
 to make sure the first chance exception handler is exception-free, as exceptions will
 cascade and could easily cause a stack overflow.
+
+******************************************************************************************************************************************************************************
+4.3
+Objective summary
+* As you create an application, you should ensure that each piece is functioning correctly
+before you move to the next piece. Unit tests enable you to validate your application
+repeatedly.
+* There are two primary types of automated developer-created tests: unit tests and
+integration tests. Unit tests usually focus on a single method and attempt to test only
+that function without any dependencies. An integration test examines more than one
+item at a time, such as retrieving known information from a database and performing
+some business logic on it.
+* When creating unit tests, cover all potential use cases, not just the common positive
+and negative uses cases. This includes edge cases and “impossible” cases as well
+because you cannot predict how a method might be used in the future by some other
+functionality.
+* You can create unit tests against simple methods, your model, or ASP.NET MVC application
+methods. You can also create them against action methods in a controller by
+examining the action result returned from the Action method.
+* You can use Visual Studio Ultimate 2012 edition to create and run web performance
+and load tests. You first create the individual mix of web tests you want to run, which
+become the actual tests run during load tests. These load tests enable you to scale
+from one to many users to validate your application under load. You can set a specific
+number of users or choose a sliding scale that gradually increases the number of users
+hitting the application. You can also set thresholds based on the system that will 
+monitor when an application reaches a CPU or memory usage threshold.
+* Testing approaches include the smoke test, stress test, and performance testing.
+The smoke test typically performs a fast, general review of an application.
+A stress test tends to be more intensive, lasting longer, using more resources,
+and testing deeper into the application. The purpose of a performance test is to understand 
+the responsiveness of the application. Capacity planning helps determine the amount of concurrent 
+users that will stress a system to a predetermined level.
+
+
+Types of load tests
+There are three different approaches you can take when running load tests: constant, step,
+and goal-based.
+Constant load tests enable you to set a constant number of users. The testing process
+uses the same users through the entire test run. Thus, from the time testing starts to the time
+it ends, a constant number of users will access the system. Using a large number of users in
+constant mode, however, can place an unrealistic demand on the application and servers. The
+testing process starts with as many individual users, as fast as possible, taking the application
+and server from zero users to the constant amount in milliseconds. It is rare that the user
+process will match that experience. In those cases, it might make more sense to use the step
+approach. Figure 4-15 shows the output from a constant load test run.
+Initial user count The number of users that start as soon as the testing process
+starts
+
+* Maximum user count The maximum number of users to be used in the process
+* Step duration The value, in seconds, of the time between the start of each new
+group of users
+* Step user count The number of users to be added after the expiration of each
+duration
+
+Test planning
+All the testing processes described in the previous section are used to support the four primary types of test approaches:
+* Smoke Generally puts a light load on the application over a shorter period of time.
+You might use a smoke test immediately after deploying to a new environment to make sure the application runs correctly.
+* Stress Runs your application under a heavy load for a long time to reveal your application’sbehavior under stress.
+Where a smoke test might last a matter of minutes and is generally more concerned with breadth of coverage 
+than depth of coverage, a stress test generally lasts hours and is concerned with both breadth and depth of test coverage.
+* Performance Tests the responsiveness of your application. This kind of test keeps careful records of when requests started, 
+when the first piece of data is returned to the client, and the length of time and amount of data that was transferred.
+* Capacity planning Uses a testing process to support the correctness of the application and to help plan for deployment.
+This approach uses the number of expected visitors as a metric and applies it to the application.
+This will be combined with the CPU limits that the company wants to support, such as a maximum usage of 75 percent, 
+to determine how many or what type of servers need to be used to support the expected usage.
+
+
+
+****************************************************************************************************************************************************************************************************
+4.4
+Objective summary
+* When you have deployed your application into Windows Azure, you will find that some
+of your traditional ways of gathering diagnostic information are not available or do not
+give you the expected results. To compensate for this, Microsoft has provided a special
+Windows Azure–specific diagnostics API, Microsoft.WindowsAzure.Diagnostics.
+* Getting diagnostics running in your Windows Azure–deployed application requires
+several steps. The first is adding information into your ServiceDefinition.csdef file so
+that you can import the Diagnostics module. You also need to make sure that information
+is added into your ServiceConfiguration.cscfg file so that that the diagnostic
+module can access databases or other business needs.
+* After diagnostics are fully available in your Windows Azure application, you can either
+code your calls to the diagnostics or use the built-in event monitors. To configure the
+event monitors, create a new file: Diagnostics.wadcfg. This file contains the configuration
+entries that will set up the appropriate counters. After diagnostic information is
+being saved, you can programmatically download the information from the server or
+get it on demand.
+* Windows Azure also enables you to configure the role to run IntelliTrace on the application. 
+You need to deploy the application using Visual Studio Ultimate 2012 and make some configuration
+changes during the publish process. After IntelliTrace is logging the role, you can download and 
+review this information through Visual Studio.
+
+Remember that Windows Azure roles are destroyed when the application
+stops and re-created during the startup process. This means that as soon as the application
+stops, saved log files or other diagnostic information will be destroyed unless they are saved
+outside of the environment. Although many logging tools take advantage of that capability, if
+you deploy in a Windows Azure role, you should use the customized diagnostic features that
+are part of the package.
+
+MORE INFO WINDOWS AZURE ROLES
+Chapter 1, “Design the application architecture,” covers Windows Azure roles in detail.
+The customized diagnostic tools are bundled in the Microsoft.WindowsAzure.Diagnostics
+namespace, which is contained in the Windows Azure Software Development Kit (SDK). You
+add the configuration code that allows diagnostics to be run to the ServiceDefinition.csdef
+file
+You also need to add configuration code to the ServiceConfiguration.cscfg file.
+There are generally two versions of the ServiceConfiguration file: one when deployed in Windows Azure 
+(ServiceConfiguration.Cloud.cscfg) and one in the development environment (ServiceConfiguration.Local.cscfg).
+
+There are two options for debugging an application in Windows Azure: IntelliTrace and RDP.
+IntelliTrace traces through the mechanics of a running application. You can view the debugging information for an ASP.NET MVC 
+application running in Windows Azure by accessing the IntelliTrace logs and running them through Visual Studio as if you were 
+debugging them locally. To do this, you need to ensure that you configured your application to run IntelliTrace and that you
+are running Visual Studio Ultimate 2012. You should also consider whether you want to run IntelliTrace in your production 
+environment or whether it is a tool strictly for use within an intermediate environment between development and production.
+The first step in enabling IntelliTrace in your application is to create and publish the Visual Studio Windows Azure project.
+When you publish the project in Visual Studio Ultimate 2012 in a Debug build configuration, you enable IntelliTrace by 
+selecting the Enable IntelliTrace check box. Clicking the associated Settings link 
+enables you to specify details about the kind of IntelliTrace information you want to collect,
+You have two primary choices: events only or events and call information. Getting only events 
+has minimal impact on application performance, but capturing the call information along with 
+events can affect the performance of your application.
+After the application is configured, the system retains logs in the role’s affiliated Windows 
+Azure storage account. When you request copies of these logs, they are transferred to your local 
+machine for analysis. To transfer the logs, open the Windows Azure Compute node that is available 
+in Server Explorer from within Visual Studio, locate the instance you want to debug, and choose to 
+view IntelliTrace logs. The files will be downloaded and stored locally on your computer
+
+Another way to debug a Windows Azure application is through the use of RDP, which you configure during the publish process
+After you enable Remote Desktop for the first time in a profile, 
+you are required to complete the authorization information that will be used to 
+log in through Remote Desktop, such as the user name, password, and account expiration date. 
+You cannot use an existing account, and you cannot use Administrator as the account name.
+You can access Windows Azure by using Server Explorer. In Server Explorer,
+expand the Windows Azure Compute node and then expand the node for a cloud service and 
+one of its roles to display a list of instances. From the context menu of one of these instances, 
+select Connect Using Remote Desktop. Upon entering the user name and password that was configured during publish,
+you will be remoted into your Windows Azure instance. At this point, 
+you can review IIS logs, review Windows event logs, and perform other tasks as needed.
+
+
+
+************************************************************************************
+Chapter summary
+* Visual Studio provides the Performance Wizard and the profiler to help you gain an understanding of the work happening within an application.
+The tools provide information on CPU usage, memory usage, application flow, and more.
+* Performance Monitor monitors applications in a production environment. The tool uses counters to measure system performance and application performance.
+System performance counters focus on application and process start and stop and running applications. Application performance counters watch details going
+on within the application such as requests, caches, and application errors.
+* In ASP.NET, logging is the process of saving information, such as an application’s state, to a text file or database.
+The information is typically gathered after errors or other items of concern are reached in the software.
+* Code contracts are a way to make your code enforce itself. They enable you to set preconditions, invariants, and postconditions. 
+Preconditions have to be fulfilled before a method can execute. Invariants ensure that there are no invalid changes during the execution of a method.
+Postconditions are verified upon completion of the method.
+* Health monitoring is a feature of ASP.NET that enables you to track the condition of various aspects of your application.
+It can be completely managed through configuration, so it can be turned on and off as needed.
+It catches events that are raised throughout the life cycle of the application.
+* Exception handling is critical to keeping your application running. Some exceptions can be captured and allow work to continue; 
+others can cause critical failures. You can handle exceptions by using the HandleError attribute, through OnException in the controller,
+or through the Application_Error handler in the Global.asax file.
+* Unit tests are designed to help validate an application one method at a time by understanding the information sent in to
+the method and understanding the expected outcome. Several Visual Studio 2012 editions support the Fakes framework,
+which enables you to mock objects, whether they are in your solution or not, through the use of stubs and shims.
+* Web tests enable you to test the user flow of the application. With the enhancement of load tests and performance tests,
+you can get metrics on the application. Load tests ramp up pressure on the web application 
+to get an understanding of its performance under certain types of loads.
+* The process for collecting diagnostic information on Windows Azure applications is different than for non-Windows Azure-based applications.
+However, you can use Windows Azure–specific diagnostic tools that enable you to track the status of your application.
+These tools are typically used like a traditional diagnostic command, but are stored in your Windows Azure storage account rather than on a local file system
