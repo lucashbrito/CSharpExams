@@ -59,5 +59,17 @@ namespace Aspnet.UI.Controllers
             //is doing work in private methods.
         }
 
-    }
+    
+        internal void PostCondition(int id)
+        {
+            //A postcondition checks that the value out of a method meets expected criteria—it validates
+            //the outcome of a method.Consider the example used for the precondition check.You
+            //can add a postcondition to it by using the Ensures static method.In this case, the contract
+            //guarantees there will not be a null Article returned from the method:
+            System.Diagnostics.Contracts.Contract.Requires(id > 0);
+           // System.Diagnostics.Contracts.Contract.Ensures(Contract.Requires<int>(this.Id!=null));
+            // some work here
+        }
+
+}
 }

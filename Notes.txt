@@ -1,3 +1,44 @@
+Ôªø4.1 
+Objective summary
+* The purpose of an ASP.NET MVC application is to enable users to perform a set of
+tasks. An application should be designed to make these tasks easier. A key part of the
+user experience is application performance, which can be affected in multiple ways.
+* Troubleshooting performance impacts is critical to making your application as robust
+as possible. The Performance Wizard in Visual Studio enables you to configure profiling
+to capture information on CPU usage, memory usage, and resource/threading
+information. The Visual Studio profiler performs a complete trace of all the calls in an
+application. This enables you to monitor and evaluate the process and logic flow within
+your application. You can find problems such as methods being called too often and
+other potential performance impacts.
+* Performance Monitor comes with the Windows operating system and provides information
+about many different characteristics of the running application.
+* Tracing is functionality in the System.Diagnostics namespace that enables you to
+write information to one or more TraceListeners. A listener writes the information
+to a text file, XML file, or another format. You can call the functionality to write
+this information by using the Trace object and the static methods for Write, WriteIf,
+WriteLine, and WriteLineIf. You can also create a custom TraceListener, if necessary.
+* Logging is the process of capturing information about your application. It is generally
+added to those methods that are doing work that you want to have further details on,
+whether it is making note of the time a call to an external web service started and the
+time the call ended, or the number of rows returned from a database query. You can
+perform logging through third-party tools such as NLog and log4net, and you can use
+the System.Diagnostics namespace to capture and write information.
+* Code contracts are a way to make a method responsible for defining and publicizing
+its own internal conditions. These conditions include preconditions, which define the
+acceptable parameters for the method; invariant conditions, which provide definitions
+of those things that must not change during the class lifetime; and postconditions,
+which define the expectations on the returned value. Code contracts throw exceptions
+if their rules are violated, and they give instruction during the development process
+about what those rules are so you know the expectations when developing methods
+that are calling the contracted method.
+* Health monitoring is a system that is part of ASP.NET that tracks various events occurring
+within your application. You add it through configuration. Health monitoring
+can also capture limited information about an application‚Äôs state as it runs. There are
+specific mappings for all errors, infrastructure errors, processing errors, failures, and
+other events.
+
+********************************************************************************************************
+
 The last choice in the initial Performance Wizard page is Resource contention data (concurrency).
 This is especially important when you are running a multithreaded application because this analysis detects
 and reports on problems such as thread contention. It provides information on how your threads interact with
@@ -8,6 +49,8 @@ trying to determine why your multithreaded application does not perform properly
 provides how-to information on configuring the Visual Studio profiler under differ-ent conditions,
 including how to use the Microsoft symbol server and other configuration items that will help you 
 maximize your profiling results. Visit http://msdn.microsoft.com/en-us/library/ms182370.aspx for more information.
+
+**********************************************************************************************************************************
 
 NLog and log4net are two well-known open-source logging tools, and several more are
 available.
@@ -24,7 +67,7 @@ and perform an action on them, typically writing them to a text file or into a d
 The easiest way to configure a TraceListener is through the Web.config file.
 
 Error logging can also be handled automatically by using the HandleErrorAttribute, 
-by overriding the controllerís OnException method, or by using a custom error filter.
+by overriding the controller‚Äôs OnException method, or by using a custom error filter.
 The HandleErrorAttribute is an attribute you can apply to actions, controllers,
 or globally that enables you to assign, as an attribute on the action, 
 the relationship between a certain type of exception, and a view that will 
@@ -40,10 +83,10 @@ the controller level, or a global level. It also handles any errors in the view
 EXAM TIP
 Ensure that you are comfortable with the various ways to manage exceptions in ASP.NET
 MVC, especially the OnException method and HandleErrorAttribute. There is more information
-in Chapter 3, ìDevelop the user experience,î on overriding the HandleErrorAttribute to
+in Chapter 3, ‚ÄúDevelop the user experience,‚Äù on overriding the HandleErrorAttribute to
 make a more customized solution.
 
-
+************************************************************************************************************************************************************
 Enforcing conditions by using code contracts
 * Preconditions Conditions that have to be fulfilled before a method can execute
 * Invariants Conditions that do not change during the execution of a method
@@ -51,3 +94,66 @@ Enforcing conditions by using code contracts
 
 Using contracts to perform this check enables consumers 
 of the methods to get some information about the expectations of the method.
+
+MORE INFO CODE CONTRACTS
+Microsoft Research, the section of Microsoft that controls the Code Contract extensions, is
+an excellent source of information on how to use code contracts within your application.
+Visit http://research.microsoft.com/en-us/projects/contracts/.
+
+************************************************************************************************************************************************************
+Enabling and configuring health monitoring
+Health monitoring is a subsystem built into ASP.NET that is specifically designed to handle
+logging of various web events such as application lifetime events, security events, and application
+errors. Application lifetime events are raised when an application starts and stops, at
+process start and end times, for heartbeats, and during regularly scheduled checks. Security
+events are raised when a login attempt fails or an unauthorized attempt is made to access
+a secured URL. Application errors cover every kind of error that might be raised, including
+unhandled exceptions.
+
+The <bufferModes> section enables you to define how long events are buffered before they are written to the provider.
+You can distinguish between urgent or critical events and regular events.
+The <providers> section in Listing 4-3 indicates the provider to be used to write the event. 
+In this case, the System.Web.Management.EventLogWebEventProvider will write event information to the Windows Application Event log.
+The <profiles> section enables you to specify sets of parameters to use when configuring events.
+These parameters indicate the minimum number of instances after which the event should be logged,
+the maximum number of instances, and the minimum interval between logging two similar events.
+This element can be critical in controlling the amount of information generated by defining 
+when monitoring begins and when it ends by setting thresholds.
+The <rules> section creates the relationship between the provider and the event so
+that the appropriate provider is called for an event. Events that are not included 
+in the <rules> section are not written.
+The <eventMappings> section shows that the application is mapped to log all events, heartbeats, 
+and application lifetime events. Other configuration settings allow for mapping all errors, 
+infrastructure errors, processing errors, failure and/or success audits, and many more
+default events. All settings can be seen in the example Web.config file. If there are
+matching rules configured in the <rules> section, these items will be written to the provider. 
+Health monitoring will help you understand what is going on in your ASP.NET MVC application.
+
+MORE INFO HEALTH MONITORING
+ASP.NET has some useful information on health monitoring in ASP.NET and thus ASP.NET
+MVC at http://www.asp.net/web-forms/tutorials/deployment/deploying-web-site-projects/
+logging-error-details-with-asp-net-health-monitoring-cs.
+
+
+******************************************************************************************************************************************************************
+4.2
+
+Objective summary
+* Exceptions can occur almost anywhere in an application. What you need to do with
+the exceptions varies based on where in your application the error occurs. You might
+display a database error to the user differently than a business logic error. Typically, a
+layer in a multilayer application handles two sets of exceptions: its own and the exceptions
+from the layer below it in the stack. A layer does not handle exceptions from the
+layer above. For example, the UI layer should not handle exceptions thrown in the data
+layer. Those exceptions should be handled by the business layer.
+* You can create custom error pages for display in your application. These pages can
+look and feel like other pages in your application but show error-specific information.
+You create custom error pages like any other controller/view combination. You define
+the error handling controller and then you create the view(s) to manage the various
+errors. You can add the pointers to the error files in both code and in configuration.
+* First chance exceptions are exceptions that are immediately thrown, before they have
+been handled. You can add a first chance exception handler to your application. This
+handler will be called for every exception that is thrown in your application. You can
+add logging or other diagnostic or cleanup items in this handler. However, you need
+to make sure the first chance exception handler is exception-free, as exceptions will
+cascade and could easily cause a stack overflow.
