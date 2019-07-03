@@ -1,0 +1,190 @@
+﻿**********************************************
+5.1
+Objective summary
+■■IIS is the primary mechanism for authentication because it comes bundled with seven providers.
+However, starting with IIS 7, only the Anonymous authentication provider comes installed by default.
+If you want to use any of the other providers, you need to install them separately.
+■■Anonymous authentication does not require users to input login credentials. Basic authentication
+requires credentials that are validated against the domain, but the information is not sent securely.
+Digest authentication is similar to Basic authentication, but the credentials are sent hashed.
+Forms authentication is one of the most commonly used authentication mechanisms because it 
+enables you to authenticate users whatever way you want. Windows authentication uses credentials
+from Windows logged-in users and sends them with the HTTP request. Client Certificate authentication
+matches certificates between the client and the server and uses it to access user information.
+IIS Client Certificate authentication allows validation against both Active Directory and the local server store.
+■■The main way to enforce authentication in ASP.NET MVC 4 is through the use of attributes. 
+The Authorize attribute tells the system that any users calling the controller or the action
+need to be authenticated. The AllowAnonymous attribute tells the system that it is permissible 
+for the users to not be authenticated.
+■■You can use custom authentication in ASP.NET MVC 4. The best method is to implement the 
+IIdentity and IPrincipal interfaces. This enables you to work with all the default authentication mechanisms.
+■■Membership providers have been a part of ASP.NET since .NET 2.0. However, ASP.NET MVC 4 
+introduced the concepts of SimpleMembership and SimpleRoles. These enable you to customize
+access to data storage by specifying the table, unique identifier, and user name in the initialization.
+■■You can create custom membership providers by subclassing AuthorizeAttribute or by deriving
+from the Forms authentication provider and overriding the applicable methods.
+■■Choosing the appropriate authentication type depends on several factors. The primary factor
+is the user store that contains the login information that will be used to verify the website user.
+If you are using an Active Directory–based authentication system, you should use one of the standard 
+challenge-based methods. If you are using a different technology for your user store, you need to use
+an overridden provider or a custom provider. If you do not have a provider or need a special one just 
+for the website, Forms authentication can be the best way to implement your authentication requirements.
+There are two parts to authentication in ASP.NET MVC: Microsoft Internet Information
+Services (IIS) and the .NET application framework. They work in tandem to manage the authentication
+process
+
+Several types of authentication are available in IIS 7 and above, and they are generally categorized
+into two different HTTP approaches: challenge-based and login redirection–based
+authentication methods. A challenge-based authentication process occurs when the client
+must respond to the server’s demand for credentials. Examples of these include Basic, Digest,
+Windows, Client Certificate Mapping, and IIS Client Certificate Mapping. The login-redirection
+approach is when the client sends login credentials to the application without being required
+by the server. The application takes the login information and uses it to determine where the
+user should be redirected. Forms authentication is the primary example of login-redirection
+authentication. Finally, Anonymous authentication in Windows IIS does not require any credentials
+from the user. It uses a common set of credentials as assigned on the server.
+
+NOTE MICROSOFT PROVIDER PATTERN
+The provider pattern is a relatively simple concept. It is basically a contract between an
+application programming interface (API) and the business logic/data abstraction layer. It is
+called a “provider” because it provides the functionality of an API that is completely separate
+from the API. This allows changes to the base API to be managed in the provider so
+that the code calling the provider does not have to change. You can get more information
+about the provider pattern at http://msdn.microsoft.com/en-us/library/ms972319.aspx.
+
+When considering the use of authentication in .NET, there are two interfaces that provide
+information about the security context of the user. The System.Security.Principal.IPrincipal
+interface contains information about the user, including the user’s roles. The information
+that the IPrincipal contains about the user is in the other interface, the System.Security.
+Principal.IIdentity. The IIdentity contains information about the users, such as whether they are
+authenticated and their name. These two interfaces define the default.NET implementations
+around authentication and authorization.
+
+Several implementations of these interfaces come with the framework:
+■■ WindowsIdentity and WindowsPrincipal The implementations that works with
+Active Directory and other Windows user stores
+■■ FormsIdentity and GenericPrincipal The implementations that support forms
+authentication
+■■ GenericIdentity and GenericPrincipal Implementations that support the more flexible
+custom user
+
+NOTE AUTHENTICATION PROTOCOLS AND PROVIDERS
+Each of the default IIS authentication types fills a different security need. Although they
+are not directly involved in ASP.NET MVC, they are the default authentication choices in IIS,
+so you should consider them when determining the correct choice in securing your application.
+These authentication types depend on a Windows-specific authentication schema
+other than Forms authentication, which allows for customized authentication.
+Default authentication providers in IIS are generally tied to using Windows authentication
+through Active Directory or a local server user store for maintaining their user lists. If you
+use a different authentication solution, you must use Forms authentication as the default
+IIS provider, a provider associated with the third-party solution, or a custom provider. You
+can learn about custom providers in the “Creating custom membership providers” section
+later in this chapter.
+
+Anonymous authentication
+You can enable Anonymous authentication in IIS Manager, from within the configuration files, or by
+using the AppCmd.exe command as follows: appcmd set config -section:anonymousAuthentication -enabled:true
+
+Basic authentication can be enabled in IIS Manager, from within the configuration files, or by using the AppCmd.exe command as follows:
+appcmd set config -section:basicAuthentication -enabled:true
+
+Forms authentication
+When configuring Forms authentication, you configure a default login screen that appears
+when users attempt to access a URL that requires an authenticated user. The login screen is
+not a browser-based screen but rather a rendered HTML page.
+
+Windows authentication
+There are two authentication protocols: NTLM and Kerberos. These
+protocols are supported only in Microsoft browsers because Windows authentication doesn’t
+require the user to provide login credentials; instead, the server retrieves the user’s login information from the browser’s credentials cache
+
+Client Certificate authentication and IIS Client Certificate authentication
+Client Certificate–based authentication is the most complex form of authentication, 
+especially regarding maintenance. Your server must have an SSL certificate installed, 
+and every client that will access the site must have a client certificate installed. 
+This means Client Certificate–based authentication is the most secure form of authentication,
+but it is also the most difficult to maintain because you have to ensure that users receive 
+the appropriate certificates. The two different versions of Client Certificate authentication support two different needs.
+
+Custom authentication
+When none of the standard types of authentication meets your needs, you can modify an
+authentication mechanism to create a custom solution. Begin by evaluating the IIdentity
+and IPrincipal interfaces. You’ll see that the IIdentity interface is typically a requirement for
+the IPrincipal to exist as the principal wraps around the identity, supplying access to a user’s
+role(s). If custom classes implement these interfaces, they can be bound to the HttpContext as
+well as the current thread, which will enable you to use the Authorize attribute without having
+to rework the code.
+When reviewing authentication requirements for your application, consider the following
+questions:
+■■ Do standard universal providers fulfill my application’s requirements?
+■■ Does the ability of Forms authentication to customize the login process provide
+needed flexibility?
+■■ Can I support all the requirements of implementing IIdentity and IPrinicipal?
+■■ Do I have to re-create the entire process from the base up to satisfy the requirements?
+It is difficult to conceive of a case in which the only solution is to re-create the membership
+process because implementing IIdentity and IPrincipal are straightforward yet flexible. Listing
+5-1 is an example of a simple implementation of IIdentity and IPrincipal in C# code.
+
+Using the IIdentity and IPrincipal interfaces enables you to put custom objects into the thread’s 
+currentPrinciple property and into the HttpContext’s User property, as you would the default authentication items.
+
+
+**********************************************
+5.2
+Objective summary
+■■To add roles, you must create a suitable user interface and invoke the Roles API. 
+When launching a new application, you can also ensure that role creation occurs as part 
+of the database creation script. If you will support user-created roles in your application,
+you need to write this functionality yourself.
+■■You can check the validity of roles in several ways: through attributes on the controller 
+or action [Authorize(Roles=”Admin”)], or in code by using IsUserInRole or GetRolesForUser.
+You can also check whether a user has a role in code through the use of methods such as RoleProvider.GetRolesForUser, 
+HttpContext.User.IsInRole, and RoleProvider.IsUserInRole.
+■■You can create custom role providers by implementing RoleProvider. Custom role providers enable 
+you to manage role access when standard role providers don’t meet your needs. You might want to 
+create a custom role provider to get information from nonstandard databases, or when you want to
+use a different database schema from the standard .NET implementation.
+■■When your application consumes WCF services, you must often manage authentication between your 
+application and the service. To manage authentication, you can use the Credentials collection on 
+the client proxy (created by using the Add Service Reference command in Visual Studio). You can 
+create a credential using a user name and password, a specific Windows credential based on domain
+user name and password, or the WindowsIdentity from the principal.
+**********************************************
+5.3
+Objective summary
+■■ Windows Azure Access Control Service (ACS) enables you to implement federated
+authentication. The four primary participants in the ACS authentication process are the
+relying party (your application), the client browser, the identity provider, and the ACS.
+■■ OAuthWebSecurity.VerifyAuthentication is the main process used to create the external
+callback for authentication. As you are calling it, you can determine whether you want
+to create a persistent cookie. This cookie will let you determine in subsequent calls
+whether the user is still authenticated.
+
+**********************************************
+5.4
+Objective summary
+■■
+Encryption is the process of turning plain text input into an illegible format that is decipherable only to applications that have the decryption key. Hashing creates a value based on strings of information in a set of data. After the data is transferred, the hash value of the transferred data is compared to the hash value of the original data. If they match, you can assume that the transferred data has not been modified. Salting is the process of adding a random string to input text before the hashing or encryption process. A salt adds unpredictability to the conversion from text to hash to help prevent unauthorized access of the text.
+■■
+Symmetric and asymmetric algorithms are used for encryption. Symmetric encryption uses the same key to encrypt and decrypt data. Asymmetric encryption uses two different keys. A public key is widely distributed and is used for encryption, whereas a private key is kept on the decryption side and is used with the public key to decrypt the data.
+■■
+When using encryption, you must keep the keys protected and store them separate from the encrypted data. You should switch your keys on a defined basis, which includes redefining the process of decrypting and encrypting the data.
+■■
+You can encrypt sections of a Web.config file using the aspnet_regiis.exe command with the -pe, -app, and -prev options. Encrypting areas of a Web.config file protects the file’s content in case the file is served to users inadvertently. Decryption of the file can be handled with the -pd option.
+■■
+Signing application data provides authentication, authorization, and nonrepudiation. This enables you to verify your communications partner and gives you confirmation that the signed application data came from your partner rather than someone else.
+**********************************************
+5.5
+Objective summary
+■■
+SSL is used by the browser and server to establish secure communications. It uses a PKI in which the public key is bound to a company or responsible individual through a trusted third party or CA.
+■■
+Before you can use SSL, you need to ensure that your web server has HTTPS: bindings enabled. You then need to send identifying information and your server-created public key, with the Certificate Signing Request (CSR) to the certificate authority for validation. After your information has been validated and your request approved, the CA will send you a data document containing your certificate that you can load into your server for usage.
+■■
+Storing your user passwords in clear text is not secure. Doing that will ensure that break-ins to your database will compromise your entire site’s security. The easiest way to keep passwords secure is to salt and hash them before persistence. Salting is the process of adding random strings to the password and then hashing forms a one-way illegible value.
+■■
+The AntiXSS Library takes an accepted-list approach to encoding characters for display to prevent XSS attacks, in which a hacker injects their own JavaScript into a website. An example of how this is done is through the use of a review of comment feature that does not alter the data when it is being displayed. Using the Encode feature of the AntiXSS Library will ensure that the display does not include items such as embedded JavaScript.
+■■
+A SQL injection attack occurs when a hacker inserts SQL commands into unprotected queries in an attempt to alter or view data or cause other damage. You control this by parameterizing your queries using SQLParameters. Entity SQL has the same risk, so if you are using this form of data access you need to take the same precautions. Linq-to-Entities does not have the same problem because it uses the object model.
+■■
+CSRFs play on the trust that a server has for its clients. It happens when a user takes information from the server, alters it, and then sends it back to the server. This could enable the user to affect orders placed by another user, or add things to a shopping cart without paying for them. The AntiForgery method on the form and the ValidateAntiForgeryToken on the controller/action work together to make sure that the page returned to the server is the same as the one that was sent to the client.

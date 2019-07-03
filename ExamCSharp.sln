@@ -32,7 +32,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter2", "Chapter2", "{E6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter3", "Chapter3", "{2FC0424E-FA8C-4FE2-A602-0822DF84512B}"
 	ProjectSection(SolutionItems) = preProject
-		Notes.txt = Notes.txt
 		notes3.txt = notes3.txt
 	EndProjectSection
 EndProject
