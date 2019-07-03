@@ -1,668 +1,156 @@
 ﻿******************************************************************************************
-1.1
+2.1
 Objective summary
-■■ The ASP.NET MVC framework provides a certain level of SoC by breaking the application
-responsibilities down into models, views, and controllers. Many aspects of each
-can be customized if necessary by overriding the base classes and creating your own.
-■■ A view represents the area of the application that will be seen by the user. When coding
-your views, do not do anything to directly change the model. There are two view
-engines included with ASP.NET MVC 4: the Razor view engine and the Web Forms view
-engine. Each provides different ways to write and manage data within the view. The
-Razor view engine cannot parse ASPX-style coding, and the ASPX view engine cannot
-parse Razor syntax.
-■■ A controller handles the incoming HTTP requests and sends commands to the model
-to update the model’s state, and sends commands to its associated view to change the
-view’s presentation of the model. A model is the part of the application that handles
-the data and business logic. It also manages the persistence layer and data access.
-■■ Client-side processing is ideal for work that is specific to the client. It is also important
-when it can help remove processing from the server. Server-side processing is
-recommended when you might be needing to perform the same processing in multiple
-views or when you need large amounts of data to do the processing and you do
-not want to have to transfer this information.
-■■ As you design your application, you should also design for scalability. This might have
-multiple levels of impact upon other decisions that you might be making around caching,
-server-side versus client-side processing and data access.
-■■ There are three primary ways to manage the creation of a database when using the Entity
-Framework. The Database First approach enables you to leverage an existing database
-schema to create entities. Code First and Model First approaches are intended to
-be used in scenarios in which you are creating a new database schema as part of your
-project. Code First enables developers to create the object structure first and then use
-it to create the database schema, whereas the Model First approach enables designers
-to work in a tool that enables them to build the object model visually and will use
-that output to create the database schema. The approach you choose should depend
-on the current status of your database as well as the preferences and skills of the team
-implementing the initial version.
-■■ The stateless nature of ASP.NET MVC disables some of the built in features of Entity
-Framework. This will cause you to have to write additional code to make the best use
-of the DBContext class and its approach to data access. With that in mind, it is best to
-abstract the data access layer. The Repository pattern is one of the most used patterns
-for managing data abstraction.
+■■ HTML provides much of the structure to a rendered webpage. CSS provides additional control over the look and feel, 
+or presentation, of a webpage. The combination of HTML and CSS is what allows 
+two different websites to look different from each other yet use the same constructs.
+■■ A primary function of ASP.NET MVC is to provide information to the site visitor.
+HTML and CSS enable you to format that information in a visually appealing way that
+enhances the visitor’s ability to use your website and find and use the information the website provides.
+■■ Dynamic page content is the main reason to use ASP.NET MVC 4. Dynamic content is 
+different information displayed based on a set of conditions. These conditions can
+include user, day, time, user actions, site status, or a similar criterion.
+■■ When using the Razor view engine, the _Layout.cshtml file contains the primary 
+design template for the application. One of the key features is the link to the CSS 
+file that defines the styles for the site. This file also contains common UI elements,
+such as menus, headers, and footers for the pages in the site. A site can have one or more CSS files.
+■■ The ASPX view engine uses the Site.Master file rather than the _Layout.cshtml file.
+■■ Helpers are ASP.NET MVC code constructs that output HTML. There are many different 
+helpers, such as @Html.TextBox, that give the developer a way to use one line of code to create a complete HTML structure.
 
+MORE INFO CSS FEATURES AND EXAMPLES
+For more information on various CSS features and examples, visit http://www.w3schools.
+com/cssref/default.asp.
 
-Data access options
-After you determine your data requirements—existing data, new data, or a combination—
-consider how you need to access the data. The two primary options are:
-* Using an object relational mapper (O/RM) An O/RM is an application or system
-that aids in the conversion of data within a relational database management system
-(RDBMS) and the object model that is necessary for use within object-oriented programming.
-The O/RM hydrates the object with the data from the database, or creates
-the SQL statements that will save the object data into the database. Examples of
-O/RM products that can be used to support ASP.NET MVC 4 are NHibernate, the
-Entity Framework, and Linq-to-SQL.
+NOTE EMBEDDING TTF FONTS
+You can read more about how to embed TTF fonts in CSS at http://msdn.microsoft.com/
+en-us/library/ms533034(v=VS.85).aspx.
 
-* Writing your own component to manage interactions with the
-database Writing your own component implies you will need to manage any
-conversions to and from your object model. This approach might be preferred when
-you are working with a data model that does not closely model your object model, or
-you are using a database format that is not purely relational, such as NoSQL.
+Common HTML helpers
+HTML helper Description
+BeginForm Creates a starting <form> tag
+EndForm Creates an ending <form> tag
+TextArea Creates an HTML <textarea> input
+TextBox Creates an HTML input box with a type of text
+CheckBox Creates an HTML check box
+RadioButton Creates an HTML radio button
+ListBox Creates an HTML list box
 
-NOTE SESSIONS
-You must also consider how you will manage state. If you want to use sessions across
-multiple servers, you likely need to use Microsoft SQL Server because Microsoft Internet
-Information Services (IIS) supports it by default. If you plan to maintain state on your own,
-it needs to become part of your data management design.
+Common extension methods for use in views
+Extension Description
+CheckBoxFor Creates an HTML check box and relates it to a property in the model
+EditorFor Creates an HTML input box and relates it to a property in the model
+ListBoxFor Creates an HTML list box and relates it to a property in the model
+RadioButtonFor Creates an HTML radio button and relates it to a property in the model
+TextAreaFor Creates an HTML <textarea> input and relates it to a property in the model
+ValidationMessage Defines the area where validation message will be displayed
+ValidationSummary Defines an area that will display all the validation messages for a view
 
-*The primary data access pattern in C# is the Repository pattern, which is intended to
-create an abstraction layer between the data access layer and the business logic layer
-*Adding the Unit Of Work pattern enables you to coordinate the work of multiple repositories by creating a single shared class for them all
-
-MORE INFO DATA ACCESS
-CodePlex provides references that illustrate how to implement the Repository, Unit of
-Work, Specification, State, and other patterns using ADO.NET Entity Framework 4.0, as well
-as the ASP.NET MVC framework, Unity, Prism, and the Windows Communication Framework
-(WCF) REST Starter Kit. Visit http://dataguidance.codeplex.com/
-
-
-ROUTES AND ROUTING
-It is difficult to talk about controllers without including routes. The routing table is stored in
-the Global.asax file. The routing system enables you to define URL mapping routes and then
-handle the mapping to the right controller and actions. It also helps construct outgoing URLs
-used to call back to the controller/actions.
-ASP.NET provides some default routing. The default routing format is {controller}/{action}/
-{id}. That means an HTTP request to http://myurl/Product/Detail/1 will look for the Detail
-action on the ProductController that accepts an integer as a parameter. The routing engine
-doesn’t know anything about ASP.NET MVC; its only job is to analyze URLs and pass control
-to the route handler. The route handler is there to find an HTTP handler, or an object implementing
-the IHttpHandler interface, for a request. MvcHandler, the default handler that comes
-with ASP.NET MVC, extracts the controller information by comparing the request with the
-template values in the routing table. The handler extracts the string and sends it to a controller
-factory that returns the appropriate controller. The controller factory is easily extendable
-by creating a custom controller factory that implements IControllerFactory
-
-
-* Strongly-typed views Eliminates the need for casting in the view by setting the
-attached model property. The view engine can work with the information through
-mapped class values rather than through a string-based lookup.
-View-specific model An intermediate class for when the display does not map
-directly to a domain object. The view-specific model gathers all the values that are
-needed for the view from one or more model objects into a single class specifically
-designed for that view.
-* Partial view ASP.NET MVCs version of a user control that can be displayed within a
-page. The Razor view engine displays it the same as a full view, but without including
-the <html> and <head> tags.
-* Master or layout page A way to share a design across multiple pages. This page is a
-building block for the application because it contains much of the wrapper HTML code
-that turns your output into a format understood by web browsers.
-* Scaffold template A template that creates standard pages as part of the process
-when creating a project. This ability gives you a quick start on development. Because
-the default scaffold types are Visual Studio T4 templates, you can alter the existing
-scaffold types or create a new one.
-
-
-Implicit <span>@article.Title</span> <span><%: article.Title %></span>
-Explicit <span>Title@(article.Title)</span> <span>Title<%: article.Title %></span>
-
-EXTENDING THE VIEW ENGINES
-Both the Web Forms and the Razor view engines are derived from the BuildManagerViewEngine
-class, which is derived from the VirtualPathProviderViewEngine class. A common reason
-for overriding or replacing the default view engine classes is to deviate from the conventionbased
-design the standard view engines must follow. You can also write an HTML helper to
-help you generate HTML inside views. An HTML helper is a class that helps you create HTML
-controls programmatically. A helper generates HTML and returns the result as a string for
-inclusion in the response stream. You can create HTML and AJAX-HTML for inclusion in your
-view, or URL helpers, which help determine the appropriate route or URL that can be accessed
-from both the view and controller. You can also write a Razor helper using Razor syntax. Razor
-helpers are one of Razor’s unique features. They encapsulate blocks of HTML and server-side
-logic into reusable page-level methods.
-
-*Designing for scalability
--With horizontal scaling, you scale by adding additional nodes to the system. This is a web
-farm scenario, in which a number of commodity-level systems can be added or removed as
-demand fluctuates. They are served using a load balancer or other piece of network equipment
-that determines which server should be called.
--If your application will scale horizontally, you must make various decisions. Depending on
-the network hardware that will be deployed and how it handles sessions, your session state
-information will be affected. You also need to determine how multiple servers will affect
-server caching of information, such as whether to cache rendered HTML that was sent to the
-client or cache data from a database. Also, if your application will provide file management,
-consider where those files will be stored to ensure access across multiple servers. Scaling
-horizontally adds some architectural considerations, but it is a low-cost and effective way to
-scale, especially because the cost for commodity servers continues to drop. Keep in mind that
-commodity servers are not necessarily physical servers, but can be virtual machines. It is far
-less expensive to roll in unused capacity using virtualization from another system than it is to
-add capacity to a system.
-By definition, however, a vertical scaling solution is limited. Theoretically, you can keep adding systems when scaling horizontally;
-however, you might run out of physical capability in a vertical solution if usage continues to grow. Also, reliability is negatively
-affected in a vertical scaling solution because there remains a single point of failure. If the system’s motherboard goes down, so does your application.
-Regarding scalability and architectures, consider modern cloud-based hosting systems such as Windows Azure to support your scaling requirements.
-Windows Azure provides immediate scalability and it offers an Autoscaling feature that increases the resources available to your application as usage grows.
-Windows Azure also provides highly scalable data storage solutions, both relational and NoSql.
-If you plan to deploy to a cloud solution, you need to ensure that your architectural design
-takes this into account by abstracting as many of the items that might change as possible.
-
-
-************************************************************************************************************************
-1.2
+******************************************************************************************
+2.2
 Objective summary
-■■ Web services are a traditional way to transfer information from one system to another
-on the Internet. They have been managed in several different ways over the years.
-ASMX services use WSDL to communicate with consumers about endpoints, protocols,
-and message formats. WCF is a SOAP-based protocol and is still the primary communications
-mechanism, but ASP.NET MVC 4 Web API has made advances in RESTful
-services. Web API also uses the ASP.NET MVC pattern for managing HTTP requests.
-■■ Designing for a distributed environment can be one of the most complex tasks a
-developer take on. Each part of the application that will be deployed separately needs
-to be able to manage message sending and receiving. This issue occurs whenever you
-separate items, such as the database from your ASP.NET MVC application, or when you
-locate the view on one server and the model on another. Communications between all
-parts of the application are critical and need to be accounted for while the application
-is being built.
-■■ Different types of web services can be used in distributed environments. WCF and
-Web API are two out-of-the-box frameworks that help you design and implement web
-services.
-■■ A hybrid application is an application that is partially deployed on-premise and partly
-off-premise. When working in this kind of environment, you need to be aware of the
-riskier nature of communications and manage the concept of a retry. You can split the
-application and host the parts in different locations. The web server portion can be
-on-premise while the data management area is off-premise, or vice versa.
-■■ When you design for a distributed environment, you will find state management to be
-a point of concern, especially when using sessions. Some design consideration should
-go into how you will implement sessions or whether you should design the application
-to be sessionless.
-■■ A distributed environment can improve availability, reliability, and scalability. One of
-the ways you can do that at the web server level is to use a web farm, in which you
-have multiple servers working in parallel to manage the various user requests
-
-
-
-MORE INFO WEB SERVICES IN ASP.NET MVC 4
-You can find additional details on ASP.NET Web API’s HTTP services for building RESTful
-applications on the .NET Framework at http://www.asp.net/web-api.
-
-
-Designing a hybrid application
-A hybrid application is an application hosted in multiple places. The term has become popular
-with the growth of Windows Azure to represent an application in which one part is hosted
-within the company’s network and another part is hosted in Windows Azure. This kind of
-solution makes sense if the application will access private or sensitive data, runs well but
-might need additional periodical capacity, or is not designed in a stateless fashion. A hybrid
-approach to application development and deployment is also a way to implement a good
-migration or expansion strategy.
-There are two primary hybrid patterns. The first is a client-centric pattern in which the client
-application determines where the application needs to make its service calls. This pattern
-is generally the easiest to code, but it is also most likely to fail. Applications built with this
-approach are the most fragile because any change to either server or client might require a
-change to the other part. The second primary pattern is a system-centric approach, in which
-you take a more service-oriented architecture (SOA) approach. It ideally includes a service
-bus, such as Windows AppFabric, which will distribute service requests as appropriate whether
-it is to a service in the cloud, on-premise, or at another source completely such as a partner or
-provider site.
-
-
-MORE INFO HYBRID APPLICATIONS IN WINDOWS AZURE USING THE SERVICE BUS
-The Windows Azure team provides many useful documents and samples on using the
-service bus in a hybrid application at http://www.windowsazure.com/en-us/develop/net/
-tutorials/hybrid-solution/.
-26 CHAPTER 1 Design the application architecture
-
-You will deploy your ASP.NET MVC code as a single application. Where that application
-and its external connections reside will determine how hybrid the application will be. You
-can take several approaches to building your application as a hybrid application. Consider a
-few scenarios for using ASP.NET MVC in a hybrid environment. In one, you host your application
-in your network and access ancillary services in Windows Azure. Or you might host your
-ASP.NET MVC application in Windows Azure and keep confidential information in your own
-network. The decision lies with where you think your potential issues might be: whether you
-are looking at Windows Azure to provide robust and scaling systems on which to deploy your
-application, whether you are looking at one of Azure’s storage options to manage your data,
-or whether Azure might be hosting an ancillary service on which your ASP.NET MVC application
-might have dependencies
-One of the primary concerns in cloud-hosted systems is security. Windows Azure has
-strong standards about how it maintains security, including prevention of data leakage and
-data exposure. However, if you access data from another location, you might open security
-holes in your system. To counteract this vulnerability, a traditional on-premise solution can
-put the database in a protected location from which it does not allow connections from the
-Internet. However, using a hybrid solution, where the database is hosted elsewhere, makes
-that impossible. If you are going to accept data from a different network, you will have an
-increased security footprint.
-Scalability, latency, cost, robustness, and security are considerations as you evaluate a hybrid
-solution. There is no one answer on how best to manage all aspects of your application.
-You need to analyze each piece of your application and determine where it makes the most
-sense to be hosted.
-
-
-Planning for session management in a distributed
-environment
-A session is stored on the server and is unique for a user’s set of transactions. The browser
-needs to pass back a unique identifier, called SessionId, which can be sent as part of a small
-cookie or added onto the query string where it can be accessed by the default handler.
-You can approach sessions in ASP.NET MVC 4 in two different ways. The first is to use session
-to store small pieces of data. The other is to be completely stateless and not use session
-at all.
-Session management through a service bus can also be unreliable. The
-surest way to manage state in a distributed application is to implement a sessionless design 
-in which you use a query string or hidden input form value to transmit information to the
-end handler. In a distributed environment, it is important to remember that that requests can be
-distributed among different servers when using a session. There are three modes of session
-management available in Microsoft Internet Information Services (IIS): InProc, StateServer,
-and SQLServer.
-You can configure IIS to manage the SessionId either way. InProc mode is the default setting
-and means that the web sessions are stored in the web server’s local memory. This option
-provides the best performance but is not clusterable. In StateServer mode, session information
-is stored in memory on a separate server. When configuring the state server in IIS, you
-need to enter the connection string to the server. All servers that use the same state server
-have access to the state information. SQLServer mode has the same advantage as StateServer
-in that the session information is shared across multiple servers. It has a performance impact,
-however, because there needs to be a call to a SQLServer and it will add latency to the session
-access.
-
-Planning web farms
-Web farms are groups of servers that share the load of handling web requests. In a simple
-system design, a single server typically supports all application requests. However, as the
-number of requests to your server increases, the less capable your server becomes in processing
-all requests. The most common way to solve this problem is to use multiple servers that
-host the application together. Doing this enables you to balance the traffic between the available
-servers rather than relying on a single server to fulfill them all
-Using web farms with an ASP.NET MVC 4 application gives you some flexibility for deploying
-the various parts of your application. Because SoC is inherent in the MVC architecture,
-you can locate components of the application on different servers. You can place views on
-one server and the model on another, as long as you manage communications between the
-two. ASP.NET MVC is designed to be flexible, enabling you to run an application with separate
-parts as well as together as a single application.
-There are many advantages of using a web farm, one of which is high availability. If a
-server in the farm goes down, the load balancer redirects all incoming requests to other servers.
-A web farm also improves performance by reducing the load each server handles, thus
-decreasing contention problems. The ability to add in servers to the farm also provides better
-scalability. In web farm mode, you need to be able to share
-the session among all the servers in the farm. This can be done by selecting the session mode
-of SessionMode OutProc (StateServer or SQLServer mode). If you are using sessions in a web
-farm, an OutProc setting enables the load balancer to send connections to a new server and
-still have the session information available.
-
-
-NOTE DEFINITION OF HYBRID APPLICATION
-Before the growth of Windows Azure, the term “hybrid application” was sometimes used
-to describe a web application that supported both the ASPX and Razor view engines to
-render content. Microsoft has since emphasized using the term as an application hosted in
-multiple places.
-
-
-*******************************************************************************************************************
-1.3
-Objective summary
-■■ Windows Azure is a cloud-based offering from Microsoft that enables companies and
-developers to have access to a fully configurable, flexible hosting and services environment.
-It enables ASP.NET MVC developers to work in a Windows-based system, yet
-offers the flexibility and scalability of a cloud-based service.
-■Azure is a stateless system, so any changes to the system whenever a role is run is not persisted to the next run.
-Although many applications might not be affected by this consideration, some will be, and consideration has to be given as how to manage this.
-A traditional server in your data center has any additional needs configured and is available every time that server is restarted. That is not the case for Windows Azure.
-■■A developer can give a role a set of startup tasks to be run, in a preconfigured order as the system starts up. 
-AppCmd.exe is a flexible Windows Azure-provided tool that enables you to manage your startup tasks. These startup tasks can be batch files,
-console files, or batch files that run Windows PowerShell scripts. You can use the startup tasks to install any additional software or 
-third-party tool that you might need, make changes to the registry, or handle any other specific needs to support your ASP.NET MVC application.
-■■After the startup tasks are completed, the OnStart method is called. You can override the OnStart method to implement other functionality.
-You need to make sure that you return true from the method, or else the startup will stop with an error.
-■■After the OnStart method has returned, the process calls Run. Because Run is a void method, you can use the override to have 
-applications start that can run in parallel to the main application.
-■■Upon shutdown, the process calls the OnStop method. This is a void method as well, and would typically be 
-used to close and clean up any ancillary processes you might have started in the OnStart or Run methods.
-
-Understanding Windows Azure and roles
-Windows Azure provides both platform as a service (PaaS) and infrastructure as a service
-(IaaS) services, and is classified as the “public cloud” in Microsoft’s cloud computing strategy.
-
-NOTE PAAS AND IAAS
-With PaaS, cloud providers deliver a computing platform, typically including an operating
-system, a programming language execution environment, a database, and a web server.
-IaaS offers virtual machines.
-
-There are three different types of solutions available in Windows Azure: Virtual Machines,
-Web Sites, and Cloud Services. Virtual Machines provide the most general solution. Virtual
-Machines in Windows Azure function like a virtual machine that you might be running in
-your local environment. Virtual Machines give you the most control over the environment, so
-they are generally a good choice for development and testing, and for running off-the-shelf
-applications in the cloud. Because you control the environment, you can set up Virtual
-Machines that look like your on-premise virtual machines. This enables an Azure Virtual
-Machine to be used for disaster recovery.
-Web Sites is a good choice for simple web hosting, and is a good solution for hosting and
-running your ASP.NET MVC 4 applications without the overhead of maintaining a full virtual
-machine. Web Sites enables a scalable experience, with fast deployment and an almost immediate
-startup, and you can upgrade or downgrade this solution quickly and easily as needed.
-Cloud Services, which is a strictly PaaS approach, was the initial deployment model for
-Windows Azure.
-
-Identifying startup tasks
-Windows Azure startup tasks are used to perform actions before a role starts. There are three
-types of roles in Windows Azure: Web, Worker, and VM. If you plan to run IIS in Windows
-Azure, you should use a Web role. If you are going to run middle-tier applications without IIS,
-a Worker role will fulfill your need. If what you want to do in Azure is beyond the scope of the
-Web or Worker roles, Microsoft gives you complete access to the VM instances themselves—
-the VM role.
-With startup tasks, you can register COM components, install a component, or set registry
-keys, for example. Startup actions are also commonly used for starting long-running processes.
-Startup tasks are available only for Web and Worker roles; VM roles cannot manage
-startup tasks
-Startup tasks are defined in the Task element, which is a node in the Startup element of the
-ServiceDefinition.csdef file. A typical startup task is a console application or a batch file that
-can start one or more Windows PowerShell scripts. You can use one or more environment
-variables if you need to pass information into the task. When you need to get data from the
-task, you can store a file containing the information to a well-known location on the file system.
-Startup tasks run each time a role recycles in addition to when a server reboots. Startup
-tasks have to end with an error level of zero (0) for the startup process to complete. When
-startup tasks end with a non-zero error level, the role does not start.
-
-
-Objects available for use in AppCmd.exe
-Object - Description
-Site - Virtual site administration
-App - Application administration
-VDir - Virtual directories administration
-Apppool - Application pools administration
-Config - General configuration sections administration
-Backup - Management of server configuration backups
-WP - Worker process administration
-Request -  Active HTTP request display
-Module -  Server module administration
-Trace - Server trace log management
-
-MORE INFO WINDOWS AZURE LIFE CYCLE
-Channel 9, which has development-related videos and is part of MSDN, has a two-part
-series on the Windows Azure life cycle at http://channel9.msdn.com/posts/Windows-Azure-
-Jump-Start-03-Windows-Azure-Lifecycle-Part-1 and http://channel9.msdn.com/posts/
-Windows-Azure-Jump-Start-04-Windows-Azure-Lifecycle-Part-2.
-
-
-*************************************************************
-1.4
-Objective summary
-■■State management can be an important part of a software application.
-It is complicated in web applications because, by definition, HTTP is a stateless 
-transfer protocol. ASP.NET MVC 4 offers multiple ways to maintain state. Decisions 
-about maintaining state need to take into account considerations such as whether state
-information will be just used on the server or in the client as well, latency, and amount of data that is being stored.
-■■The most common way to maintain state is through a session. The session can be 
-configured to be stored in a SQL Server or separate state server and can also be configured
-to put the session ID in either a cookie or as part of the query string.
-■■The query string is also a place where you can put a limited amount of information 
-to pass back and forth to the server. The information is not secure, however, and is 
-not unlimited because there are size limits on requested URLs. The query string is easy to access from ASP.NET MVC 4.
-■■There is also the capability to completely store state information on the client side 
-if that best serves the application requirements using HTML5 Web Storage API.
-You need to ensure that the browser adequately handles HTML5, but. ASP.NET MVC 4 
-does not have any default handlers to work with the client-side information other than the jQuery library.
-■■Scalability is a major concern when determining how best to manage state. 
-Creating a scaleable architecture will immediately rule out some of the available choices, 
-as having an indeterminate server process the request is problematic because that server 
-might not have access to the state information if it is stored on a single server.
-ASP.NET MVC 4 supports stateless protocols for scalability as well.
-
-
-
-In an ASP.NET MVC 4 application, state information can be stored in the following locations:
-■■ Cache, which is a memory pool stored on the server and shared across users 
-	- The Cache object provides a broader scope than the other state management objects as the data is 
-	available to all classes within the ASP.NET application. The Cache object enables you to store
-	key-value pairs that become accessible by any user or page in that application domain. 
-	It is in-process in that although it goes across all users and pages, it is confined to that particular
-	application domain on an individual server. If you consider using Cache in a web farm setting, 
-	you need to ensure that your server has its own copy of the cache. You cannot assume that a value is 
-	cached simply because the value was used as part of the last request; the request might
-	be connecting to a different server that never called the value in the first place.
-■■ Session, which is stored on the server and unique for each user
-	- When you are implementing session state, you can use the default stores that come with ASP.NET 
-	or you can create your own session-store provider. Inheriting the SessionStateStoreProviderBase class enables you
-	to create your own session provider to support situations in which the default session store is inadequate.
-	If your ASP.NET MVC application runs on an Oracle database, for example, there is no built-in support for 
-	managing state that is shared by multiple servers. If you want to store the session information in a table 
-	in your Oracle database, you need to write a custom provider. Follow these steps to configure the choice in IIS Manager:
-	1. Open IIS Manager and navigate to the level you want to manage.
-	2. In Features View, double-click Session State.
-	3.On the Session State page, in the Session State Mode Settings area, click Custom.
-	4.Click Apply in the Actions pane.
-	
-■■ Cookies, which are stored on the client and passed with each HTTP request to the server
-	-Cookies are small snippets of information stored on the client side and can persist across sessions.
-	They are individualized to a particular domain or subdomain, so with careful planning you can use
-	cookies across a web farm. Cookie information is sent to the server and returned from the server 
-	with every request. The sizing can have an impact and it is always part of the HTTP request. 
-	A cookie is available in HttpContext.Request.Cookies when reading and HttpContext.Response.Cookies 
-	when storing the value. A cookie can also be set with an expiration date so 
-	that the data stored in the cookies can have a limited time span.
-■■ QueryString, which is passed as part of the complete URL string
-	-A query string is information that can be used by only one user. 
-	Its lifetime is by request unless architected to be managed differently. 
-	The query string is appended to the URL, and the interaction between the 
-	query string and the routing table is straightforward: The query string is 
-	not part of the route data and thus is ignored by the routing engine. 
-	You can access the data in the HttpContext.Request.QueryString[“attributeName”] 
-	on the server and from the client side by parsing window.location.href. 
-	This information is also visible to the end user, so care should be taken
-	about what kind of information is sent. Putting unencrypted personal or secure
-	information in the query string means that, theoretically, anyone can see it because 
-	it is not encrypted over HTTPS. However, ASP.NET MVC supports several encryption schemas
-	that enable you to encrypt data as necessary for inclusion into the query 
-	string that will make the use of the query string more secure.
-■■ Context.Items, which is part of the HttpContext and lasts only the lifetime of that request
-	- Context.Items contains information that is available only during a single request. 
-	Typically, it is used to add information to the request through the use of an HTTP module
-	in which you can add some information to the request that will be available to the other 
-	modules and to the handler. An example of this is authentication, which is handled by a module.
-	It authenticates the user of the request, and the results of the authentication request are made available for use through the rest of the request-response process.
-■■ Profile, which is stored in a database and maintains information across multiple sessions
-	-Profile information is stored in a database by user name and can be accessed through
-	HttpContext.Profile[“miscellaneousData”]. The profile is part of the Membership and Roles provider,
-	and you need to configure a provider in the Web.config file. The use of a profile means you have to
-	be using the ASP.NET membership provider because it is based on information stored in the membership.
-
-
-	NOTE ACHIEVING SCALABILITY
-In the web world, scalability is usually achieved by adding additional servers across the
-breadth of the web application layer so that each server handles less of the overall demand.
-Although this enables your application to support more users, it can also cause a lot
-of trouble if you haven’t correctly architected for the ability. The default settings for state
-management assume a one-to-one relationship between the client and the server and will
-lead to an inability to manage scalability and reliability as required.
-
-You can use an OutProc, a StateServer, or a SQLServer session or a sessionless solution.
-As long as all servers in a web farm are configured to use the same state server or SQL
-Server, using an OutProc session to access state information stored in a session should get
-consistent responses, regardless of the server calling the information and serving the page.
-
-
-*Cookies
-When you are considering the structure of your ASP.NET MVC application, you might determine that some 
-information needs to be used by multiple requests. Ideally, this information would fit into the model
-you are using on your strongly-typed view. However, if multiple requests are necessary, it is likely 
-the information is independent of the model being transferred. This gives you two options, neither of which is ideal.
-Create a base class for all your models that contain this information so it is available as part of 
-every model you are using in a view, or find some other way to store and transfer this information.
-
-*HTML5 Web Storage
-HTML5 Web Storage can choose to use either the sessionStorage or localStorage object. Each
-option provides a different feature set. The sessionStorage scope enables you to use set and
-get calls on different pages as long as the pages are from the same origin URL. Objects in sessionStorage
-persist as long as the browser window (or tab) is not closed. localStorage provides
-another option that increases scope because localStorage’s values persist beyond window and
-browser lifetimes, and values are shared across every window or tab communicating with the
-same origin URL.
-
-*Applying configuration settings in the Web.config file
-Many choices related to state management can be maintained through the primary Web.config 
-file in the root directory of the project. Sessions can be enabled in the Web.config file through the use of a <sessionState> node.
-
-
-MORE INFO ASP.NET CONFIGURATION
-Microsoft Support has an informative set of articles on the details of configuration within the ASP.NET system at http://support.microsoft.com/kb/307626.
+■■ Client validation is an important feature that JavaScript and ASP.NET MVC support that
+help eliminate trips between the client and the server by checking on the client side
+whether valid values have been put into a form. These client-side validation rules are
+built on top of data annotations just as the validation rules that are run on the server
+side are.
+■■ Third-party JavaScript libraries, including JQuery, can be useful when designing the UI
+of an MVC application. After selecting an element through the DOM, you can programmatically
+manipulate all aspects of the element. JavaScript enables UI logic to be
+handled completely on the client side without the need for additional communication
+with the server.
+■■ The jQuery library isn’t limited to adding a few additional widgets. It can also be used
+to create effects and animations, creating a more interactive web application. It is also
+112 CHAPTER 2 Design the user experience
+important in helping to ensure that cross-browser compatibility issues are managed. The jQuery library was designed to support all major browsers and many of their older versions.
+■■JavaScript is different from languages such as C# because it does not support a constructor.
+Instead, developers can use prototypes to create objects. The objects can encompass previously 
+created JavaScript libraries. Because both objects—the original object and the prototype—share the same behaviors, 
+it makes it simpler to manage what each of the objects is doing in the UI.
+■■Although AJAX is mainly used to retrieve and send information, it can also be used to push
+the newly acquired information into UI elements. Doing so can help create a dynamic, fast, and fluid application.
 
 EXAM TIP
-ASP.NET MVC was designed to support the stateless nature of HTTP. The use of sessionless
-state is a natural addendum to that approach because it minimizes the overhead added by
-the server when managing state. You should be comfortable with the concept of maintaining
-state information within your application and understand the potential ramifications of
-each solution, including the risks of passing the state identifier between the client and the
-server, such as when using cookies and query strings.
+You should master validation before taking the 70-486 exam because of its importance to
+various parts of your application’s user experience, including UI behavior and data security. 
+Validation also flows across the model, view, and controller, affecting all levels of your application. 
+Understand how to configure validation, how to access the validity of your model when working in the controller,
+and how to ensure client-side validation and display validation messages in the view.
 
-There might be times when you want to disable caching, which you can do by using Duration=0.
-Other most commonly used options available in the OutputCacheAttribute are VaryByParam, Location, and NoStore.
-VaryByParam stores a different version of the output based on a different parameter
-collection that was sent in for the action call. The Location qualifier gives direction to where caching 
-takes place; NoStore is used when caching should be switched off. 
-The default value is Any, but Client, Downstream, Server, and ServerAndClient are other options available when setting the cache location.
+Using remote validation
+The examples provided previously in this section involve a static set of rules that can be attributed on the model.
+There will be situations in which you will need to perform a more interactive validation. An example is the Register
+User section of an application. You want new users to know immediately if the user name they enter is available.
+The only way to do this is through a remote validator that posts the user name back to the server, which tells you whether that value is available.
 
-Donut caching
-The OutputCache attribute works well for caching an entire page. You might need a more flexible approach 
-and to cache parts of the page content while continuing to generate other parts of the page. For example,
-part of the starting page for an online store includes user information. You want to cache the top and bottom toolbars, 
-but you do not want to cache any personalization areas. OutputCache does not work in this case with the default setup, 
-but donut caching is a good solution. Donut caching is a server-side technology that 
-caches an entire page other than the pieces of dynamic content—the donut holes.
-Although ASP.NET Web Forms supports donut caching through the Substitution control, 
-the Razor Engine does not offer support for donut caching. However, because ASP.NET MVC 4 is built on top of ASP.NET, 
-you can still use the Substitution APIs through the HttpResponse.WriteSubstitution method by creating an MVC helper.
-This enables you to cache an entire page on the server except for a particular reference.
-
-Donut hole caching
-Where donut caching caches the entire page other than a few sections, donut hole caching takes the other 
-approach and caches only select portions of the page while keeping the rest of the page dynamic. 
-Donut hole caching is also different from donut caching because it is well supported in 
-ASP.NET MVC by using child actions. To perform donut hole caching, create the partial view that will be cached.
-
-Implementing data caching
-Another form of caching that can occur at the server side is by using the new .NET 4 Caching Framework.
-The default implementation uses the ObjectCache and MemoryCache objects that are within the System.Runtime.Caching assembly.
-
-MORE INFO .NET CACHING FRAMEWORK
-There is an informative set of articles on MSDN about caching in .NET Framework 
-applica-tions that includes data caching, services caching, output caching,
-and how you can extend caching at http://msdn.microsoft.com/en-us/library/dd997357(v=VS.110).aspx.
+Using AJAX to make partial page updates
+You can use Asynchronous JavaScript and XML (AJAX) within MVC web applications to send and retrieve 
+data from a server asynchronously without having to perform a complete HTTP request/response process 
+for the entire page. The user experience is greatly improved because only the results of the AJAX call are returned and displayed.
+The data transferred between the client and server is generally XML or JavaScript Object Notation (JSON).
 
 
-Create the application cache manifest
-A simple version of the application cache manifest is provided in the following example. 
-The key sections are CACHE, NETWORK, and FALLBACK. The CACHE represents the resources that should be cached on the client,
-NETWORK defines those items that are never cached, and FALLBACK defines the resources that should be returned if the corresponding resources are not found.
-
-1.5
+******************************************************************************************
+2.3
 Objective summary
-■■ Page output caching is a shared strategy on clients and servers. Types of page output
-caching include full page caching and partial page caching. Donut caching and donut
-hole caching are types of partial page caching. Donut caching caches the majority of
-the page, enabling some dynamic content. Donut hole caching enables a majority of
-the page to be dynamic and caches some content.
-■■ Data caching is a server-side technique that enables you to put an intermediate step
-between your business logic and the database. Data caching provides a way to reuse
-data and enhance performance by making database calls only when the cache is invalidated
-or expired.
-■■ Windows AppFabric is an example of a third-party tool that enables you to create caching
-content on one server and share it across multiple servers in a web farm. Windows
-AppFabric is a set of services built upon Windows Server that manages distributed caching. It can also be configured to manage the session in an ASP.NET MVC 4 application.
-■■Application caching is an HTML5 feature that enables you to create a caching manifest that describes the settings across a website or for a page.
-■■HTTP caching is a caching mechanism built into the HTTP protocol that handles its own version of expiration calculation and uses it to determine the response to send to the client.
+■■ Partial views are a way to reuse functionality on multiple pages. 
+They enable the developer to write code once and include it on other pages as needed.
+Partial views are the MVC replacement for user controls from ASP.NET Web Forms.
+Partial views are usually stored in the Views/Shared folder.
+■■The Razor view engine enables you to create reusable templates. 
+The templates are assignable by object type, and can be either for 
+display (DisplayTemplates) or edit (EditTemplates). Templates are
+stored in the ~Views/Shared/EditorTemplates or ~Views/ControllerName/EditorTemplates 
+directories and are called by @Html.EditorFor and @Html.DisplayFor.
+■■Views and partial views should be reused whenever possible. If views and partial 
+views use the same model and controller, you can manage the validity of the model 
+through data annotations and HTML helpers. However, in other cases, you have to manage
+the validation yourself, such as by using AJAX to accomplish client-side validation or 
+modifying the controller and/or models to accommodate such a task.
+■■Master or layout pages can be switched on the fly via code. 
+Because master or layout pages usually contain information on loading JavaScript 
+libraries and style sheets, switching the master or layout page can change the UI appreciably.
+This could be useful if the goal is to create different user experiences based 
+on conditions (for example, on a mobile browser as opposed to a desktop or laptop browser).
 
 
-********************************************
-1.6
+NOTE INSERTING A PARTIAL VIEW INTO A DIFFERENT MODEL
+A partial view that is tied to a model might not be able to display correctly 
+if inserted into a view being controlled by a controller other than the one that
+created it. As an example, if a partial view is created for Model FOO, an additional 
+workaround (such as AJAX) is needed if the partial view FOO is being inserted into a view created for model BAR.
+
+******************************************************************************************
+2.4
 Objective summary
-■■ HTTP polling is a JavaScript methodology of continuously polling the server to see
-whether there is any information that the client needs to know. Although not the most
-efficient method, it has the luxury of working in any browser that supports JavaScript
-and does not require HTML5 support.
-■■ HTTP long polling is a way to use HTTP to mock up a way for the server to pass data
-back to the client, as determined by the server, by opening a long-standing connection
-to the server that will either time out or return data when the server determines
-it is necessary. Upon timeout or data return, the client can immediately open a new
-connection.
-■■ WebSockets are a way to provide duplex, or two-way, communication between the
-client and server. Both sides can communicate at the same time to the other side. The
-client connects via HTTP and then sends an upgrade request to the server, which gives
-a WebSockets connection. You need to create both client- and server-side code to
-interact with the socket. After that is done, every command is basically an event that is
-fired when a message is received.
-■■ WebSockets can be used in situations in which long-term, two-way communication is
-useful. It is not necessarily always the best solution, especially when there is a chance that
-the application will be viewed in older browsers that do not support HTML5 features.
+■■ Because all browsers are not created equally, you must be careful
+when choosing how to display information in the UI. If business requirements dictate,
+you must ensure that your application is accessible across all browsers and devices and 
+that the viewing experience is the same. Additional libraries such as jQuery and Modernizr. can help achieve that goal.
+■■ The HTML5 and CSS3 specifications are moving toward finalization. Browser vendors 
+have incorporated alternative property names to make their browsers compatible with 
+nonfinalized HTML5 and CSS3 specifications. These features are sometimes available only 
+in specific manufacturers’ browsers, and only in certain versions of each browser. 
+When developing for multiple browser deployment across multiple devices, you should 
+use the most common features available across all the browsers for compatibility.
+■■ If an application is targeted for a specific market (such as mobile or intranet) 
+for which only a certain type of browser exists on a given device or devices, you should use 
+only HTML and CSS features supported by that browser. This way, the client can be 
+coded to specifically manage various tasks such as client-side verification and UI animation.
 
 
-WebSockets technology is a new approach to supporting duplex communication. 
-WebSockets acts as a replacement for HTTP in that it takes over the communications protocol 
-between the client and the server for a particular connection. This means you should not use 
-it as the primary means of communication between a client and server. Instead, use WebSockets 
-to support some discrete functionality that needs two-way, long-running communication without 
-having to support the request-response process. You will find that WebSockets work best when 
-supporting a part of your page you designed as a partial page or are when using some kind of donut or donut hole caching.
-
-Choosing a connection loss strategy
-When using WebSockets, you need to determine how you are going to handle those times when you lose a connection. 
-This functionality has to be on the client side because the server side cannot reach out to the client when there is 
-no connection. When the connection is broken, the client might notice it when either an onclose or an onerror event is
-thrown, or the delegated methods are called, depending on how the connection was set up
-
-Deciding when to use WebSockets
-WebSockets are an ideal solution when you need two-way communication with the server with minimal overhead. 
-A common use of WebSockets is for an in-browser instant messaging client. A traditional dashboard solution 
-is also a candidate for the flexibility offered by WebSockets because near-real-time updates is a value-add.
-
-MORE INFO WEBSOCKET API
-The W3C’s WebSocket API specification at http://dev.w3.org/html5/websockets/ 
-gives you an in-depth understanding of how the WebSocket protocol works inside a browser.
-********************************************
-1.7
+******************************************************************************************
+2.5
 Objective summary
-■■ HTTP modules and handlers insert into the request processing path in IIS.
-■■ Modules fit into the process on the way down to the handler, and on the way back out
-from the handler. A synchronous module has an Init method that enables you to set a
-handler for one of the events attached to the request process.
-■An asynchronous module is more complicated to work with, but with async, await, and Task 
-you can create an HTTP module that can handle long-running tasks without stopping the process.
-■■ Handlers are the destination of the request process and serve requests for a particular URL/extension.
-A handler can be synchronous or asynchronous, depending on the base class they extend.
-■■ Choosing which one to create is a matter of determining where in the request process you
-need to add your functionality. If your requirements expect you to be able to handle a specific
-URL or extension differently from others, a handler is probably what you need to create. 
-If you instead want to act when something happens during the process, you should use a module.
-
-
-ASP.NET life cycle events
-Event name - Description
-BeginRequest - The first event raised; always raised when processing a request
-AuthenticateRequest -  Raised when a security module has identified the user
-PostAuthenticateRequest - Raised after the AuthenticateRequest event is raised
-AuthorizeRequest -Raised after a security module has authorized the user
-PostAuthorizeRequest - Raised after the AuthorizeRequest event is raised
-ResolveRequestCache - Raised to let caching modules serve the requests
-PostResolveRequestCache - Raised when a caching module served the request
-MapRequestHandler - Raised when the appropriate HttpHandler is selected
-PostMapRequestHandler - Raised after the MapRequestHandler event is raised
-AcquireRequestState - Raised when the current state, such as session state, is acquired
-PostAcquireRequestState - Raised after the AcquireRequestState event is raised
-PreRequestHandlerExecute - Raised just prior to executing an event handler
-PostRequestHandlerExecute - Raised when the HttpHandler has completed execution
-ReleaseRequestState - Raised when all request event handlers are completed
-PostReleaseRequestState - Raised after the PostReleaseRequestState event is raised
-UpdateRequestCache - Raised after caching modules store the response for future use
-PostUpdateRequestCache - Raised after the UpdateRequestCache is raised
-LogRequest - Raised just prior to logging the request
-PostLogRequest - Raised when all LogRequest event handlers are completed
-EndRequest - The last event raised in the HTTP pipeline
-PreSendRequestHeaders - Raised just before the HTTP headers are sent to the client
-PreSendRequestContent - Raised just before the content is sent to the client
-
-
-EXAM TIP
-HTTP modules and handlers give you flexible access into the HttpRequest and
-HttpResponse objects. You should be familiar with the events that are raised during the
-process because they provide integration points for HTTP modules. You should also consider
-the impact of creating custom HTTP handlers and the effect a custom handler might
-have on your typical ASP.NET MVC site. Becoming familiar with the default modules and
-handlers that support ASP.NET MVC will also be useful.
+■■ ASP.NET MVC 4 supports multiple approaches to mobile users. You can create overridden
+views that are generic for any mobile device or specific to a device. The System.
+Web.Mvc.VirtualPathProviderViewEngine.DisplayModeProvider evaluates incoming
+requests and routes them based on the values in the userAgent of the request and the
+configured DisplayModeProviders.
+■■ Another choice for designing a mobile-viewable website is to use the viewport <meta>
+tag and CSS @media queries. These enable you to create different style groups, based
+on the minimum and maximum width of device screens.
+■■ The jQuery Mobile library enables you to use markup to provide additional functionality
+as supported by the client browser. If a browser does not support the functionality,
+the jQuery library will downgrade the functionality gracefully.
 
