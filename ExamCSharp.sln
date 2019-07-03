@@ -22,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNet", "AspNet", "{1BC03F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter1", "Chapter1", "{B784DB67-FD0F-4F7E-A0C5-E70E9110DD59}"
 	ProjectSection(SolutionItems) = preProject
-		Notes.txt = Notes.txt
+		notes1 .txt = notes1 .txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter2", "Chapter2", "{E6691BF5-BFF4-4F00-9356-B5418A59F77E}"
@@ -33,16 +33,17 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter3", "Chapter3", "{2FC0424E-FA8C-4FE2-A602-0822DF84512B}"
 	ProjectSection(SolutionItems) = preProject
 		Notes.txt = Notes.txt
+		notes3.txt = notes3.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter4", "Chapter4", "{D82C8B87-15AA-4C30-BA5B-F0A858DA6719}"
 	ProjectSection(SolutionItems) = preProject
-		Notes.txt = Notes.txt
+		notes4.txt = notes4.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Chapter5", "Chapter5", "{7DA69D76-E474-49EE-AFC7-7082A12CF1E6}"
 	ProjectSection(SolutionItems) = preProject
-		Notes.txt = Notes.txt
+		notes5.txt = notes5.txt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspnet.UI", "AspNet\Aspnet\Aspnet.UI\Aspnet.UI.csproj", "{FEC0E5E3-6968-49C0-B7CE-C03ADC5C919F}"

@@ -1,0 +1,369 @@
+﻿******************************************************************************************
+3.1
+Objective summary
+■■ Many companies, especially e-commerce companies, rely on search engines to help
+drive web users to their sites. The more visitors a website has, the more income that
+can be generated from sales, advertising, or other monetizing possibilities.
+■■ As part of your SEO efforts, you need to remove obstacles that might prevent a search
+engine from crawling your website effectively. Ensure that your code does not have
+missing or incorrectly ordered HTML tags and that you have separated your content
+from your presentation and scripting information. This is especially important for ASP.
+NET MVC applications because much of the final rendered HTML is created by HTML
+helpers or shared from template pages, and is not usually inspected.
+■■ HTML analysis tools can help you determine the validity of the HTML your application
+outputs. These tools include the IIS SEO Toolkit and the Internet Explorer Developer
+Toolbar. W3C also provides online validators that check HTML and CSS, among other
+things.
+■■ Technology is constantly improving, enabling people with disabilities to use the Internet
+more effectively. WAI-ARIA is a markup system that helps assistive technologies,
+and thus users, better understand and make use of your content.
+■■ ASP.NET MVC 4 does not currently offer built-in support for ARIA. However, the extensible
+nature of ASP.NET MVC enables you to create HTML helpers that extend the
+current set of built-in helpers and make your site more ARIA-compliant.
+
+The SEO Toolkit is not built in to IIS; you download the toolkit from Microsoft.com. With
+the SEO Toolkit installed, you can analyze a website or a web application, create sitemaps, and
+create robot exclusion rules and a robots.txt file for a site, which tell search engines not to
+index a certain page.
+
+EXAM TIP
+The three major components of rendered HTML pages are content, presentation, and functionality.
+Content includes text, images, videos, and similar information. Presentation information includes styles 
+and other information specifically related to the look and feel of the site that do not add to the content itself.
+Functionality refers to client-side scripts, such as JavaScript
+
+There are four major considerations that ARIA tries to address: keyboard focus and navigation, relationships,
+managing dynamic changes, and the role of presentation. To make a fully ARIA-compliant application 
+means you need to manage all these aspects of your web application.
+
+
+******************************************************************************************
+3.2
+Objective summary
+■■ Globalization is the technical effort necessary to prepare an application to support
+multiple cultures. After you globalize an application, you don’t have to repeat the effort.
+Internationalization is the work that is done to make an application ready to support
+multiple cultures. Localization is the process of creating locale-specific content,
+images, and video—all the items your application presents to the user.
+■■ Globalization requires you to put all displayable strings in resource files. You can
+choose which resource files to create, but you should minimize duplication of strings
+to ensure minimal time for performing translations. This can be problematic because
+you might need to add strings to resource files to enable proper translation of certain
+values. The word “head,” for example, refers to both a body part and the top part of a
+document.
+■■ An alternative approach to resource files is to provide different views for different
+languages. This approach eliminates dependency on resource files, but it can lead to
+code replication.
+■■ You can use a shared approach to globalization, in which resource files are used along
+with multiple copies of views. This kind of approach is best suited to supporting non-
+Western languages. Using another set of views strictly for right-to-left languages is a
+logical approach.
+■■ Provide globalization resources to jQuery-specific items. JavaScript cannot determine
+the culture from the browser, even if the information is available and is being sent by
+the browser.
+■■ You can give users the option to choose their culture in your application. This enables
+people who use shared computers or who do not completely understand how to manage
+their browser settings to be able to enjoy the multicultural aspects of your website.
+
+This setting tells ASP.NET MVC to automatically enable client-based culture; the framework
+determines the requested culture for you. After ASP.NET discovers that the client is requesting
+a culture setting different from the default, it loads this information into the thread in
+the Thread.CurrentThread.CurrentUICulture property, which contains the UICulture class for a
+complete HTTP request cycle. This is the value that the system analyzes as it determines what
+it should do to handle this request.
+
+MORE INFO ADDITIONAL RESOURCE FILE CONFIGURATION TOOLS
+You can generate or update resource files using additional .NET Framework–based tools
+such as Assembly Linker and Resource File Generator. You can find more information about
+these tools at http://msdn.microsoft.com/en-us/library/acz3y3te.aspx.
+
+
+Setting cultures
+Setting the culture is critical to supporting multiple cultures.
+Without knowing a client’s culture, you can’t display the correct translation to the client.
+Another challenge is that the client system’s default culture might not be the desired culture for the user. 
+Using automated features for detecting the language from the browser is an improvement for globalizing your application. 
+To give the most comfortable experience to multicultural users, however, you should provide a way for users to manage their 
+
+
+Creating satellite resource assemblies
+There are two primary approaches you can use when architecting a culturally aware application, 
+which is how the application will access translated information. You can create a single assembly
+that contains all the resources for the application, including all translated files. This is a 
+good technique when you support only a few locales, and the translation files are not very large.
+If you have many different cultures, or your translation files are large, it might make more sense to use satellite assemblies.
+Satellite assemblies are different from single assemblies because they ensure that only the language that is needed is loaded into memory for use. 
+A large resource file can slow down a system because it takes extra time to find the requested content within the file. 
+Satellite assemblies reduce the amount of memory needed and provide a slight increase in performance
+locale and preferred language (culture selections) in your application.
+An ASP.NET MVC application that is targeted for multilingual environments should use satellite assemblies.
+The naming convention suggested by Microsoft for satellite assemblies is this:
+<resource_name>.<culture_identifier>.resource
+
+***************************************************************************************************
+3.3
+Objective summary
+■■ Filter attributes provide a way for the developer to examine and take action on information
+in a request before and after the action is called. ASP.NET MVC comes with
+built-in attributes that help with authentication and authorization, secure access, antiforgery
+support, and error management. However, you can create custom action filters
+as needed.
+■■ Action results are the finishing actions taken by an application. They are the last step
+of handling the HttpRequest and are responsible for writing information back to the
+response stream. The commonly used ViewResultBase is the base for rendering HTML
+to the client; both ViewResult and PartialViewResult inherit ViewResultBase. There are
+also two file-based returns, FileResult and ContentResult, one for binary and the other
+for ASCII content. JavaScriptResult and JsonResult are designed to support clientside
+processing by returning JavaScript code or JSON objects. RedirectResult and
+RedirectToRouteResult forward the processing to another process either by URL or by
+named route.
+■Model binding is a flexible process that maps fields on the UI to properties on the model. 
+There are three types of model binding: strongly-typed binding, weakly-typed binding, and using the value provider.
+■■Strongly-typed binding is a two-way tool in that the HTML helper understands 
+attributes on the model and can set up client-side validation based on that information. 
+The framework can also identify the information as it returns to hydrate the model for use within the action method.
+■■Weakly-typed binding is a one-way binding in that it doesn’t provide validation on the client side, 
+but it does create the model after the request is returned. You can provide some helpers to weak binding,
+as well as create an accepted list or blocked list of attributes that should be populated from the form by using the Include and Exclude parameters on the Bind attribute.
+■■You can map forms data returned from the client using the ToValueProvider on the FormCollection object. 
+This process attempts to match the fields of an empty model with the values it finds in the list of keys.
+If it finds a semantic match, it populates the property in the model with the value in the form collection.
+
+One set of attributes includes traditional filters, which ensure that a request meets a certain
+expectation. These filters include RequireHttpsAttribute, ValidateAntiForgeryTokenAttribute,
+ValidateInputAttribute, AuthorizeAttribute, and ChildActionOnlyAttribute. They are all in the
+System.Web.Mvc namespace. Each filter plays a role in keeping the application secure by ensuring
+that requests that do not match the expected feature are rejected with the appropriate
+message.
+*The RequireHttpsAttribute ensures that all calls to the decorated controller or method have
+gone through HTTPS to ensure secure transport. You typically use it whenever you manage
+confidential or secure information, such as personal information, credit card purchases,
+or screens that are expecting login names and passwords. If the call has not gone through
+HTTPS, the application forces a resubmit over HTTPS.
+* The RequireHttpsAttribute ensures that all calls to the decorated controller or method have
+gone through HTTPS to ensure secure transport. You typically use it whenever you manage
+confidential or secure information, such as personal information, credit card purchases,
+or screens that are expecting login names and passwords. If the call has not gone through
+HTTPS, the application forces a resubmit over HTTPS.
+*The ValidateInputAttribute gives you control over the content coming back from
+a post operation and ensures that there is no potentially dangerous content, such as <$ or
+<! items, which could potentially lead to problems. You can select form fields that will not be
+validated in the attribute by [ValidateInput(true, Exclude = “ArbitraryField”)] and on a model
+property by decorating the model property with the AllowHtml attribute. You can also turn
+validation completely off, if desired. If a form field fails the validation, the server returns the A
+Potentially Dangerous Request.Form Value Was Detected From The Client message and does
+not allow the request processing to continue.
+*AuthorizeAttribute is another filter designed specifically to enable you to wrap security
+around an action being taken without having to write any code as part of that action. The
+AuthorizeAttribute gives you control over whether the user must be authenticated before
+being able to take the decorated action. It can be modified to check for authorization as well
+by checking to see whether the user has roles that are in an accepted list: Authorize(Roles =
+Admin,PowerUser)
+* The HandleErrorAttribute is an error management
+tool that handles exceptions that occur within the action. By default, ASP.NET MVC 4 displays
+the ~/Views/Shared/Error view when an error occurs in a decorated action. However, you can
+also set the ExceptionType, View, and Master properties to call different views with different
+master pages based on the type of exception. To perform customizations or overrides using
+the HandleErrorAttribute, override the OnException method. Doing so gives your application
+access to error information as well as some context about the error.
+*The ActionFilterAttribute. It isn’t a true attribute; it is the
+abstract class upon which action filters are based. This class enables the creation of custom
+action filters or any kind of class that you want to be able to act as an attribute on an action.
+The four primary methods available for override in a customized action filter are the following,
+in order of execution:
+■■ OnActionExecuting Called before the action is called. It gives you the opportunity
+to look at information within the HttpContext and make decisions about whether the
+process should continue to be processed.
+■■ OnActionExecuted Enables you look at the results of an action and determine
+whether something needs to happen at that point.
+■■ OnResultExecuting Called before the action result from the action is processed.
+■■ OnResultExecuted Called after the action result is processed but before the output
+is loaded into the response strea
+
+EXAM TIP
+Action filters provide one of the most robust customization points in ASP.NET MVC. Being
+able to apply the same behavior to multiple actions through attribution allows a high degree
+of flexibility. You should be familiar with the ActionFilterAttribute class and its various
+methods.
+
+There are three primary ways to apply attributes. The first is on the action itself. Decorating
+an action ensures that the requirements within the filter are met by the context that the
+action is handling. The attribute can also be put on a class level, or controller. Putting the
+attribute at the class level ensures that all actions in the controller act as if they have been
+decorated with the attribute. The last place that you can assign a filter is through global filters,
+which apply to all actions within the system. filters.Add(new RequireHttpsAttribute());
+
+
+Action result  | Helper method  | Description
+ContentResult  | Content  | Returns a user-defined content type
+EmptyResult  | (None)  | Represents a return value to be used if the action method must return a null result
+FileResult  | File Returns binary output that is written to the result
+JavaScriptResult  | JavaScript  | Returns JavaScript that is executable on the client
+JsonResult |  Json Returns a serialized JavaScript Object Notation (JSON) object
+PartialViewResult  | PartialView |  Renders a partial view; a special view that represents a portion of the finished page
+RedirectResult  | Redirect  | Redirects to another action method by using its URL and
+passing through the routing process
+RedirectToRouteResult  | RedirectToAction  RedirectToRoute  | Redirects to another action method
+ViewResult | View  | Renders a view as an HTML document
+
+ContentResult is a surprisingly flexible action result because it enables you to define the
+content as a string, the encoding of the content, and the content type. You can return anything
+from XML (by using a content type of text/xml) to a PDF file (by using application/pdf).
+Anything that can be streamed as an encoded string and has a well-known content type can
+be returned as a ContentResult.
+ContentResult is a way to send encoded and defined string values to the client. Its complement
+is FileResult, which sends binary files to the client. It has two properties: ContentType
+and FileDownloadName. FileDownloadName represents the value that will be defaulted into
+the Save File dialog box that the browser will open. The FileResult action result supports
+binary file management, such as retrieving images from a database and sending them to the
+client or managing documents on the server.
+Two action results are specific to client-side functionality: JavaScriptResult and JsonResult.
+JavaScriptResult has a property Script that contains JavaScript code to download to the client.
+This is appropriate if you want to enable client-side functionality based on browser type, download 
+only specific files based on mobile device type, or manage any other problem in which custom-delivered 
+snippets of JavaScript might be useful. JsonResult serializes a model to JSON and then returns it to the requestor. 
+It is the natural feeder to an AJAX solution because there is no additional work 
+that has to be done to turn the result into the appropriate format.
+Three other action results do not start a process returned to the user: RedirectResult, RedirectToRouteResult, and EmptyResult. 
+The redirect actions redirect a page or file elsewhere rather than returning it
+
+There are four default value providers in ASP.NET MVC 4, each of which specializes in handling a different area of the request stack:
+■■FormsValueProvider Enables you to work with the data returned as form values
+■■QueryStringProvider Enables you to work with items in the query string
+■■HttpFileCollectionValueProvider Enables you to work with any attachments that might be included with the request
+■■RouteDataValueProvider Enables you to work with the routing data, or URL
+
+
+
+***************************************************************************************************
+3.4
+Objective summary
+■■ When SEO is important to your application, consider supporting human-understandable
+URLs, such as Product/<BookTitle>, rather than something like Product/1. Doing so
+enhances your SEO efforts because the content of the URL is more descriptive of the
+content of the page. If the link between the URL and the content is not obvious, you
+might need to support multiple ways to get to that particular page, such as by title,
+ISBN, or author’s last name. Properly configured routes help your application quickly
+determine what action should handle the request.
+184 CHAPTER 3 Develop the user experience
+■■ The order in which you place routes into the RouteCollection object, or route table, is important. 
+The route handler processes the list until it finds one that matches the incoming pattern. You should
+start your list with the patterns that the route handler should ignore and then add more specific URL
+patterns so they will be matched by the route handler before a more general one finds it.
+Use the MapRoute function to add a route to the RouteCollection object.
+■■ When creating a route, you can add default values to take the place of any values that are missing in the URL string.
+As part of that process, you can make parameters optional so the route handler will
+know to examine overridden functions that might take different parameters. 
+You can also use this strategy to handle special needs, such as creating simple URLs that the server
+will know to translate to a more complex controller/action combination, such as http://yoururl/specials 
+getting routed to the Product controller and the GetCurrentSpecials action method.
+■■ Constraints are a way to filter a requested URL to define different routing for items based
+on the variable type or content. The route handler reviews the constraint as a regular expression 
+and evaluates the appropriate variable against it to determine whether a match exists.
+■■ Large, complex ASP.NET MVC applications might need to support hundreds of actions on a controller.
+Using areas enables the designer to separate functionality into logical or functional groups. 
+It creates new copies of the Models, Views, and Controllers directories in an Areas directory 
+so you can split the functionality in an appropriate way. Each has its own route management features as well,
+so one area can define a route different from another area. The areas are split in the application by AreaName/Controller/Action.
+
+Creating a route in this fashion uses an extension method on the RouteCollection class,
+MapRoute, to manage the process. The required parameters are the name of the route and
+the URL pattern to be applied for matching. Although not a required parameter, default information
+should always be used for a pattern; otherwise, the user gets a 404 File Not Found
+error message if information is missing. Although this response is appropriate at times, it is
+usually better to send the user to a customized route that presents a standardized error view
+that is not the default 404 File Not Found error message.
+
+Defining areas
+An area is a portion of an application. Using an area enables the designer to separate a normal
+set of controllers, views, and models into separate functional groups in the project and
+local file structure. This approach is typically taken in larger projects in which the number of
+actions on controllers could become unmanageable.
+Imagine a complete e-commerce application with sets of functionality common to customers
+placing orders and viewing their previous orders. Another complete set of functionality
+would be used in the warehouse to facilitate order picking, boxing, and shipping. Although
+all those actions could theoretically be in the same “Order” controller, they would quickly become
+unmanageable, especially if one team works on the order area and another team works
+on the warehouse area of the site. Creating an area enables your application to physically and
+logically separate warehouse functionality from other functionality within your site
+
+
+*************************************************************************************************
+3.5
+Objective summary
+■■ ASP.NET MVC 4 provides developers with many extensibility points that enable you
+to insert needed functionality throughout the framework. You can do nearly anything
+with the request at every step through the request handling process.
+■■ One of the most powerful extensibility points, and likely the most used one, is the
+action filter. You can overwrite an existing action filter to add custom functionality, or
+you can create your own filter by implementing the IActionFilter interface and assigning
+the filter as required. The action filter enables you to get into the processing stack
+before the action gets executed, or immediately after the action gets executed.
+■■ You can add a result filter, which is like an action filter but for action results. It has
+two methods: OnResultExecuting, which is called before the result is executed; and
+OnResultExecuted, which is called after the result has completed execution.
+■■ You can create a custom controller factory that enables you to make nontraditional
+decisions about how your controllers are constructed. This kind of approach is useful
+when you need to pass in certain information such as dependencies or runtime
+references.
+■■ Overriding a view engine enables you to interject additional business logic into the
+HTML rendering. If your needs are more extensive than adding behavior, such as replacing
+behavior or wanting to support a syntax different from Razor or ASPX, you can
+create and register your own custom view engine.
+
+*************************************************************************************************
+3.6
+Objective summary
+■■ When bandwidth is minimal or throttled, you can promote a good user experience by
+ensuring that the number and size of the files they need to download are minimized.
+■■ There are several processes you can run to shrink the size of files and minimize the
+number of files to be downloaded. ASP.NET MVC 4 supports the ability to minify
+JavaScript and CSS files. This is a process that removes comments, white space, and
+other unused and wasted characters from files. It also shrinks method and variable
+names in JavaScript files. The other process offered is the ability to bundle scripts.
+There is a certain overhead when creating an HTTP connection, and most modern
+browsers limit the number of concurrent connections you can have to a site. Between
+these two issues is the ability to bundle files or keep them as smaller discrete files for
+development purposes, but turn them into a larger combined file before distribution
+to your users.
+■■ IIS enables you to configure your web server to send compressed content to users
+whose browsers accept gzipped content. You can have the web server compress only
+static files, such as JavaScript and CSS files, or every file, including dynamic files. You
+can also set a minimum size of the file before the server will compress it.
+■■ You can have your application zip up content before providing it to users, which is
+appropriate for needs such as reports and documents. Users have decompress the
+compressed file.
+■■ CDNs enable you to distribute your content across a broader set of providers than
+your own internal set, which gives you several advantages. Your servers have to do
+less processing of simple GETs to retrieve images, scripts, and so on. A CDN can put
+the content closer to the client so their time spent on the network is lower, potentially
+improving their performance.
+
+you determine that your application will benefit from bundling, you can create bundles in the BundleConfig.cs file with the following code:
+bundles.Add(new ScriptBundle("~/bundles/myBundle").Include("~/Scripts/myScript1.js", "~/Scripts/myScript2.js", "~/Scripts/myScript3.js"));
+
+When a browser connects to the server, it sends a bit of information about itself in the header. 
+One of these header tags is Accept-Encoding, which gives information on alternative encoding types that the browser can understand:
+Accept-Encoding: gzip, deflate
+This code indicates that the browser can interpret gzip and deflate,
+which are compression types. The easiest way to take advantage of this
+is to configure compression in IIS. The server automatically compresses 
+files before sending the response to the Internet. You can choose to compress
+static content only or to also compress dynamic content. You can also set a limit 
+on the size of the file before compression. As with all things performance related,
+there is a tradeoff between sending a smaller file and the extra amount of time it 
+takes on the client to unzip the content. It becomes a choice between a savings in download time versus the extra client cost to decompress the file
+
+Planning a content delivery network (CDN) strategy
+CDNs provide a way to distribute your content from sources other than your server. 
+The delivery nodes might be within your network or external, but they are not part of the server system running your ASP.NET MVC application.
+CDNs serve several different purposes. One is to take the work of serving images, 
+CSS files, JavaScript files, and other static content off your application server.
+When you look at your typical webpage, you see many links to static content that 
+can be offloaded from your server, enabling your application servers to retain 
+capacity for running ASP.NET MVC applications rather than serving static content.
+
+MORE INFO WINDOWS AZURE CDN
+There are many CDNs available. Windows Azure CDN is one of the 
+easiest to use and fast-est to incorporate into an MVC application. 
+To get more information, visit http://www.windowsazure.com/en-us/develop/net/common-tasks/cdn/.
